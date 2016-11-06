@@ -13,11 +13,11 @@ type OrderController struct {
 }
 
 func (this *OrderController) CreateOrder() {
-	fmt.Println(this.GetString("PhoneNumber"))
-
 	var order m.Order
 
 	json.Unmarshal(this.Ctx.Input.RequestBody, &order)
+
+	fmt.Println(order)
 
 	result, err := order.CreateOrder()
 	if err == nil {

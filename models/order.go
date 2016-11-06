@@ -27,7 +27,7 @@ func (u *Order) TableName() string {
 
 func GetOrders() []*Order {
 	o := orm.NewOrm()
-	o.Using("default")
+	//o.Using("default")
 
 	var orders []*Order
 
@@ -46,7 +46,7 @@ func (order Order) NewOrder() (err error) {
 	//order := Order{99999999, "str1", "str2", 9999999999, "status1"}
 
 	o := orm.NewOrm()
-	o.Using("default")
+	//o.Using("default")
 
 	valid := validation.Validation{}
 	valid.Required(order.Code, "code")

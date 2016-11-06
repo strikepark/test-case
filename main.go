@@ -6,10 +6,10 @@ import (
 
 	"os"
 	"strconv"
-
-	_ "planadotest/routers"
 	"database/sql"
 	"log"
+
+	_ "planadotest/routers"
 )
 
 func main() {

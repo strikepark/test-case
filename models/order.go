@@ -21,6 +21,23 @@ func init() {
 	orm.RegisterModel(new(Order))
 }
 
+func GetOrders() []*Order {
+	o := orm.NewOrm()
+	o.Using("default")
+
+	var orders []*Order
+
+	qs := o.QueryTable("orders")
+
+	num, err := qs.All(&orders)
+
+	if err != nil || num > 0 {
+		fmt.Println(err)
+	}
+
+	return orders
+}
+
 func (order Order) NewOrder() (err error) {
 	//order := Order{99999999, "str1", "str2", 9999999999, "status1"}
 

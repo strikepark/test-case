@@ -18,7 +18,7 @@ func (this *OrderController) NewOrder() {
 	order := m.Order{10, 99999999, "str1", "str2", 9999999999, "status1"}
 	err := order.NewOrder()
 
-	if err != nil {
+	if err == nil {
 		this.Data["json"] = "Ok"
 	} else {
 		str, _ := json.Marshal(err)
@@ -29,9 +29,9 @@ func (this *OrderController) NewOrder() {
 }
 
 func (this *OrderController) GetOrders() {
-	str := `{"page": 1, "fruits": ["apple", "peach"]}`
+	str, _ := json.Marshal(m.GetOrders())
 
-	this.Data["json"] = str
+	this.Data["json"] = string(str)
 	this.ServeJSON()
 }
 

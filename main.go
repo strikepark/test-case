@@ -21,7 +21,7 @@ func init() {
 	o := orm.NewOrm()
 
 	res, err := o.Raw("CREATE TABLE IF NOT EXISTS " +
-		`orders("id" integer AUTO_INCREMENT, "code" bigint, ` +
+		`orders("id" SERIAL PRIMARY KEY, "code" bigint, ` +
 		`"send_address" varchar(255), "recipient_address" varchar(255), ` +
 		`"phone_number" bigint, "status" varchar(255))`).Exec()
 	if err == nil {

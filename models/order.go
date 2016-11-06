@@ -25,25 +25,25 @@ func (u *Order) TableName() string {
 	return "orders"
 }
 
-func (order Order) CreateOrder() (result Order, err error) {
+func (order Order) CreateOrder() (Order, error) {
 	o := orm.NewOrm()
 
 	valid := validation.Validation{}
 
 	valid.Required(order.Code, "Code is required")
-	valid.Required(order.SendAddress, "Code is required")
-	valid.Required(order.RecipientAddress, "Code is required")
-	valid.Required(order.PhoneNumber, "Code is required")
-	valid.Required(order.Status, "Code is required")
+	valid.Required(order.SendAddress, "SendAddress is required")
+	valid.Required(order.RecipientAddress, "RecipientAddress is required")
+	valid.Required(order.PhoneNumber, "PhoneNumber is required")
+	valid.Required(order.Status, "Status is required")
 
 	if valid.HasErrors() {
-		return result, errors.New("TODO: order not vaild errors")
+		return order, errors.New("TODO: order not vaild errors")
 	}
 
-	_, err = o.Insert(&order)
+	_, err := o.Insert(&order)
 
 	if err != nil {
-		return result, nil
+		return order, err
 	}
 
 	return order, nil

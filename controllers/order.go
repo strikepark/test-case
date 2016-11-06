@@ -36,22 +36,22 @@ func (this *OrderController) GetOrders() {
 	this.ServeJSON()
 }
 
-//func (this *OrderController) GetOrder() {
-//	id := this.Ctx.Input.Param(":id")
-//	if id == "" {
-//		this.Abort("403")
-//	}
-//
-//	order, err := m.GetOrder(id)
-//	if err != nil {
-//		this.Abort("500")
-//	} else {
-//		this.Data["json"] = order
-//	}
-//
-//	this.ServeJSON()
-//}
-//
+func (this *OrderController) GetOrder() {
+	id := this.Ctx.Input.Param(":id")
+	if id == "" {
+		this.Abort("403")
+	}
+
+	order, err := m.GetOrder(id)
+	if err != nil {
+		this.Abort("500")
+	} else {
+		this.Data["json"] = order
+	}
+
+	this.ServeJSON()
+}
+
 //func (this *OrderController) UpdateOrder() {
 //	id := this.Ctx.Input.Param(":id")
 //	if id == "" {

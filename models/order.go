@@ -6,6 +6,7 @@ import (
 
 	"errors"
 	"fmt"
+	"strconv"
 )
 
 type Order struct {
@@ -63,20 +64,19 @@ func GetOrders() []*Order {
 	return orders
 }
 
-//func GetOrder(code string) (order Order, err error) {
-//	uid, _ := strconv.ParseInt(code, 10, 64)
-//
-//	order = Order{Code: uid}
-//	fmt.Println("Code ", uid)
-//
-//	o := orm.NewOrm()
-//
-//	err = o.Read(&order)
-//
-//	if err == orm.ErrNoRows {
-//		fmt.Println(errors.New("not"))
-//		return order, errors.New("404")
-//	} else {
-//		return order, nil
-//	}
-//}
+func GetOrder(uid string) (order Order, err error) {
+	id, _ := strconv.Atoi(uid)
+
+	order = Order{Id: id}
+
+	o := orm.NewOrm()
+
+	err = o.Read(&order)
+
+	if err == orm.ErrNoRows {
+		fmt.Println(errors.New("not"))
+		return order, errors.New("404")
+	} else {
+		return order, nil
+	}
+}

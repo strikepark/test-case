@@ -18,6 +18,7 @@ func (this *OrderController) CreateOrder() {
 	fmt.Println("Order: ", s)
 
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &order); err != nil {
+		fmt.Println(err)
 		this.Abort("500")
 	}
 

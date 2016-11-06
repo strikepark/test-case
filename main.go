@@ -21,9 +21,9 @@ func init() {
 	o := orm.NewOrm()
 
 	res, err := o.Raw("CREATE TABLE IF NOT EXISTS " +
-		`orders("Id" integer, "Code" bigint, ` +
-		`"SendAddress" varchar(255), "RecipientAddress" varchar(255), ` +
-		`"PhoneNumber" bigint, "Status" varchar(255))`).Exec()
+		`orders("id" integer, "code" bigint, ` +
+		`"sendAddress" varchar(255), "recipientAddress" varchar(255), ` +
+		`"phoneNumber" bigint, "status" varchar(255))`).Exec()
 	if err == nil {
 		num, _ := res.RowsAffected()
 		fmt.Println("postgres row affected nums: ", num)

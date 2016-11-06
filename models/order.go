@@ -9,12 +9,12 @@ import (
 )
 
 type Order struct {
-	Id int
-	Code int64 `valid:"Required"`
-	SendAddress string `valid:"Required"`
-	RecipientAddress string `valid:"Required"`
-	PhoneNumber uint64 `valid:"Required"`
-	Status string `valid:"Required"`
+	Id int `form:"-"`
+	Code int64 `valid:"Required";form:"code"`
+	SendAddress string `valid:"Required";form:"sendAddress"`
+	RecipientAddress string `valid:"Required";form:"recipientAddress"`
+	PhoneNumber uint64 `valid:"Required";form:"phoneNumber"`
+	Status string `valid:"Required";form:"status"`
 }
 
 func init() {

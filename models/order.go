@@ -21,6 +21,10 @@ func init() {
 	orm.RegisterModel(new(Order))
 }
 
+func (u *Order) TableName() string {
+	return "orders"
+}
+
 func GetOrders() []*Order {
 	o := orm.NewOrm()
 	o.Using("default")

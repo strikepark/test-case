@@ -19,7 +19,8 @@ func (this *OrderController) NewOrder() {
 	err := order.NewOrder()
 
 	if err == nil {
-		this.Data["json"] = "Ok"
+		str, _ := json.Marshal(order)
+		this.Data["json"] = string(str)
 	} else {
 		str, _ := json.Marshal(err)
 		this.Data["json"] = string(str)

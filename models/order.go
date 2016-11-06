@@ -49,6 +49,7 @@ func GetOrder(code string) (order Order, err error) {
 	uid, _ := strconv.ParseInt(code, 10, 64)
 
 	order = Order{Code: uid}
+	fmt.Println("Code ", uid)
 
 	o := orm.NewOrm()
 

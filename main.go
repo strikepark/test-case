@@ -35,8 +35,6 @@ func main() {
 
 	if err == nil {
 		beego.BConfig.Listen.HTTPPort = port
-	} else {
-		beego.BConfig.Listen.HTTPPort = 8080
 	}
 
 	beego.Run()

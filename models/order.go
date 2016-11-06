@@ -107,7 +107,7 @@ func UpdateOrder(order Order) (Order, error) {
 func GetCostumerOrders(phoneNumber string) (orders []*Order, err error) {
 	o := orm.NewOrm()
 
-	_, err = o.QueryTable("orders").Filter("phone_numbers", phoneNumber).All(&orders)
+	_, err = o.QueryTable("orders").Filter("phone_umber", phoneNumber).All(&orders)
 
 	if err == orm.ErrNoRows {
 		return orders, errors.New("404")

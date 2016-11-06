@@ -4,7 +4,6 @@ import (
 	"github.com/astaxie/beego"
 
 	m "planadotest/models"
-	"fmt"
 	"encoding/json"
 )
 
@@ -14,13 +13,10 @@ type OrderController struct {
 
 func (this *OrderController) CreateOrder() {
 	order := m.Order{}
-	//s := string(this.Ctx.Input.RequestBody[:])
 
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &order); err != nil {
 		this.Abort("500")
 	}
-
-	fmt.Println("Order: ", order)
 
 	result, err := order.CreateOrder()
 	if err != nil {

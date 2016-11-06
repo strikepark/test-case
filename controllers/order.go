@@ -6,7 +6,6 @@ import (
 	m "planadotest/models"
 	"fmt"
 	"encoding/json"
-	"bytes"
 )
 
 type OrderController struct {

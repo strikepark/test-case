@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"encoding/json"
 
 	m "planadotest/models"
 	"fmt"

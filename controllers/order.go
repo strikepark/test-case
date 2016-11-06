@@ -17,7 +17,7 @@ func (this *OrderController) CreateOrder() {
 	order := m.Order{}
 
 	n := bytes.IndexByte(this.Ctx.Input.RequestBody, 0)
-	s := string(this.Ctx.Input.RequestBody[:n])
+	s := string(this.Ctx.Input.RequestBody[:n-1])
 	fmt.Println("Order: ", s)
 
 	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &order); err != nil {

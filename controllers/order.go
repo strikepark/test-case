@@ -74,18 +74,21 @@ func (this *OrderController) UpdateOrder() {
 	this.ServeJSON()
 }
 
-//func (this *OrderController) GetCostumerOrders() {
-//	code := this.Ctx.Input.Param(":code")
-//	if code == "" {
-//		this.Abort("403")
-//	}
-//
-//	orders, err := m.GetOrder(code)
-//	if err != nil {
-//		this.Abort("500")
-//	} else {
-//		this.Data["json"] = orders
-//	}
-//
-//	this.ServeJSON()
-//}
+func (this *OrderController) GetCostumerOrders() {
+	code, _ := strconv.ParseInt(this.Ctx.Input.Param(":code"), 10, 64)
+	codeStr := strconv.FormatInt(code, 10)
+	if codeStr == "" {
+		this.Abort("403")
+	}
+
+	orders := m.Order{Code: code}
+
+	result, err := m.GetCostumerOrders(orders)
+	if err != nil {
+		this.Abort("500")
+	} else {
+		this.Data["json"] = result
+	}
+
+	this.ServeJSON()
+}

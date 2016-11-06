@@ -103,3 +103,15 @@ func UpdateOrder(order Order) (Order, error) {
 		return order, nil
 	}
 }
+
+func GetCostumerOrders(orders Order) (Order, error) {
+	o := orm.NewOrm()
+
+	err := o.Read(&orders)
+
+	if err == orm.ErrNoRows {
+		return orders, errors.New("404")
+	} else {
+		return orders, nil
+	}
+}

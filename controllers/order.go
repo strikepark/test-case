@@ -7,6 +7,8 @@ import (
 	"strconv"
 
 	m "planadotest/models"
+
+	"encoding/json"
 )
 
 // Order controller
@@ -21,7 +23,8 @@ func (this *OrderController) NewOrder() {
 	if err != nil {
 		this.Data["json"] = "Ok"
 	} else {
-		this.Data["json"] = "Not ok"
+		str, _ := json.Marshal(err)
+		this.Data["json"] = string(str)
 	}
 
 	this.ServeJSON()

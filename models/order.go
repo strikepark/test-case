@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"errors"
 	"strconv"
-	"math/rand"
-	"math"
+	//"math/rand"
+	//"math"
 )
 
 type Order struct {
@@ -48,7 +48,7 @@ func GetOrders() []*Order {
 func GetOrder(code string) (order Order, err error) {
 	uid, _ := strconv.ParseInt(code, 10, 64)
 
-	order = Order{Id: int(math.Abs(rand.Float64())), Code: uid}
+	order = Order{Code: uid}
 
 	o := orm.NewOrm()
 

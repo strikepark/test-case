@@ -15,14 +15,12 @@ type OrderController struct {
 func (this *OrderController) CreateOrder() {
 	order := m.Order{}
 
-	//fmt.Println("RequestBody: \n", this.Ctx.Input.RequestBody)
-
-	str, _ := json.Marshal(this.Ctx.Input.RequestBody) // , &order
-
-	fmt.Println("Order: \n", str)
+	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &order); err != nil {
+		this.Abort("500")
+	}
 
 	result, err := order.CreateOrder()
-	if err == nil {
+	if err != nil {
 		this.Abort("500")
 	} else {
 		this.Data["json"] = result

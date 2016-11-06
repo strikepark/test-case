@@ -6,6 +6,7 @@ import (
 	m "planadotest/models"
 	"fmt"
 	"encoding/json"
+	"bytes"
 )
 
 type OrderController struct {
@@ -19,6 +20,10 @@ func (this *OrderController) CreateOrder() {
 		this.Abort("500")
 	}
 
+	n := bytes.IndexByte(this.Ctx.Input.RequestBody, 0)
+	s := string(this.Ctx.Input.RequestBody[:n])
+	fmt.Println("Order: ", s)
+
 	result, err := order.CreateOrder()
 	if err != nil {
 		this.Abort("500")
@@ -30,7 +35,6 @@ func (this *OrderController) CreateOrder() {
 }
 
 func (this *OrderController) GetOrders() {
-	fmt.Println(this.Ctx.Input.Method())
 
 	orders := m.GetOrders()
 

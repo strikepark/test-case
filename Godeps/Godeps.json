@@ -32,6 +32,11 @@
 			"Rev": "b635af5a8cd798ae9ede1adb6f9472fa87361168"
 		},
 		{
+			"ImportPath": "github.com/astaxie/beego/orm",
+			"Comment": "v1.7.1-2-gb635af5",
+			"Rev": "b635af5a8cd798ae9ede1adb6f9472fa87361168"
+		},
+		{
 			"ImportPath": "github.com/astaxie/beego/session",
 			"Comment": "v1.7.1-2-gb635af5",
 			"Rev": "b635af5a8cd798ae9ede1adb6f9472fa87361168"

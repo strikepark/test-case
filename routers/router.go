@@ -16,7 +16,7 @@ func init() {
 	//)
 
 	//beego.AddNamespace(ns)
-
-	beego.Router("/api/orders", &c.OrderController{}, "*:CreateOrder")
-	//beego.Router("/api/orders", &c.OrderController{}, "get:GetOrders")
+	
+	beego.Router("/api/orders/create", &c.OrderController{}, "post:CreateOrder")
+	beego.Router("/api/orders/get", &c.OrderController{}, "get:GetOrders")
 }

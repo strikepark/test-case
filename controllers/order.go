@@ -13,6 +13,8 @@ type OrderController struct {
 }
 
 func (this *OrderController) CreateOrder() {
+	fmt.Println(this.Ctx.Input.Method())
+
 	var order m.Order
 
 	json.Unmarshal(this.Ctx.Input.RequestBody, &order)

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 
 	m "planadotest/models"
+	"fmt"
 )
 
 type OrderController struct {
@@ -12,6 +13,7 @@ type OrderController struct {
 }
 
 func (this *OrderController) CreateOrder() {
+	fmt.Println("POST")
 	var order m.Order
 
 	json.Unmarshal(this.Ctx.Input.RequestBody, &order)

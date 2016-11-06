@@ -3,21 +3,22 @@ package main
 import (
 	"github.com/astaxie/beego"
 	_ "github.com/lib/pq"
+	"github.com/astaxie/beego/orm"
 
 	"os"
 	"strconv"
-	"database/sql"
-	"log"
+	//"database/sql"
+	//"log"
 
 	_ "planadotest/routers"
 )
 
-func main() {
-	_, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
-	if err != nil {
-		log.Fatal(err)
-	}
+func init() {
+	orm.RegisterDriver("mysql", orm.DRPostgres)
+	orm.RegisterDataBase("default", "mysql", os.Getenv("DATABASE_URL"))
+}
 
+func main() {
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 
 	if err == nil {

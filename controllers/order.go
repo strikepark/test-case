@@ -5,11 +5,18 @@ import (
 
 	"encoding/json"
 	"strconv"
+
+	m "planadotest/models"
 )
 
 // Order controller
 type OrderController struct {
 	beego.Controller
+}
+
+func (this *OrderController) NewOrder() {
+	order := m.Order{99999999, "str1", "str2", 9999999999, "status1"}
+	order.NewOrder()
 }
 
 func (this *OrderController) GetOrders() {

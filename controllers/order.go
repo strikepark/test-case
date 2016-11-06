@@ -15,7 +15,7 @@ type OrderController struct {
 }
 
 func (this *OrderController) NewOrder() {
-	order := m.Order{99999999, "str1", "str2", 9999999999, "status1"}
+	order := m.Order{0, 99999999, "str1", "str2", 9999999999, "status1"}
 	err := order.NewOrder()
 
 	if err != nil {

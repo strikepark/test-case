@@ -9,6 +9,7 @@ import (
 )
 
 type Order struct {
+	id int
 	Code uint32 `valid:"Required"`
 	SendAddress string
 	RecipientAddress string

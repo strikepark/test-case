@@ -75,13 +75,13 @@ func (this *OrderController) UpdateOrder() {
 }
 
 func (this *OrderController) GetCostumerOrders() {
-	code, _ := strconv.ParseInt(this.Ctx.Input.Param(":code"), 10, 64)
-	codeStr := strconv.FormatInt(code, 10)
-	if codeStr == "" {
+	phoneNumber, _ := strconv.ParseInt(this.Ctx.Input.Param(":phoneNumber"), 10, 64)
+	phoneNumberStr := strconv.FormatInt(phoneNumber, 10)
+	if phoneNumberStr == "" {
 		this.Abort("403")
 	}
 
-	orders := m.Order{Code: code}
+	orders := m.Order{PhoneNumber: phoneNumber}
 
 	result, err := m.GetCostumerOrders(orders)
 	if err != nil {

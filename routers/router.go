@@ -6,14 +6,13 @@ import (
 )
 
 func init() {
-	//beego.Router("/", &controllers.MainController{})
-	//beego.Router("/hello-world", &controllers.MainController{}, "get:HelloWorld")
-
 	ns := beego.NewNamespace("/api",
-		beego.NSRouter("/order/:code", &controllers.OrderController{}, "get:NewOrder"),
-		//beego.NSRouter("/orders", &controllers.OrderController{}, "post:NewOrder"),
+		beego.NSRouter("/orders", &controllers.OrderController{}, "post:CreateOrder"),
 		beego.NSRouter("/orders", &controllers.OrderController{}, "get:GetOrders"),
-		beego.NSRouter("/orders/:code", &controllers.OrderController{}, "get:GetOrder"),
+		//beego.NSRouter("/orders/:id", &controllers.OrderController{}, "get:GetOrder"),
+		//beego.NSRouter("/orders/:id", &controllers.OrderController{}, "put:UpdateOrder"),
+		//
+		//beego.NSRouter("/orders/costumer/:code", &controllers.OrderController{}, "get:GetCostumerOrders"),
 	)
 
 	beego.AddNamespace(ns)

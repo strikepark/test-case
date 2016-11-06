@@ -28,22 +28,6 @@ func init() {
 		num, _ := res.RowsAffected()
 		fmt.Println("postgres row affected nums: ", num)
 	}
-
-	type Order struct {
-		Id int
-		Code int64
-		SendAddress string
-		RecipientAddress string
-		PhoneNumber uint64
-		Status string
-	}
-
-	var order Order
-
-	num, err := o.Raw("(SELECT * FROM orders)").QueryRows(&order)
-	if err == nil {
-		fmt.Println("user nums: ", num)
-	}
 }
 
 func main() {

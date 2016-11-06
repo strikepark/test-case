@@ -16,13 +16,13 @@ type OrderController struct {
 func (this *OrderController) CreateOrder() {
 	order := m.Order{}
 
-	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &order); err != nil {
-		this.Abort("500")
-	}
-
 	n := bytes.IndexByte(this.Ctx.Input.RequestBody, 0)
 	s := string(this.Ctx.Input.RequestBody[:n])
 	fmt.Println("Order: ", s)
+
+	if err := json.Unmarshal(this.Ctx.Input.RequestBody, &order); err != nil {
+		this.Abort("500")
+	}
 
 	result, err := order.CreateOrder()
 	if err != nil {

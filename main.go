@@ -14,8 +14,8 @@ import (
 )
 
 func init() {
-	orm.RegisterDriver("mysql", orm.DRPostgres)
-	orm.RegisterDataBase("default", "mysql", os.Getenv("DATABASE_URL"))
+	orm.RegisterDriver("postgres", orm.DRPostgres)
+	orm.RegisterDataBase("default", "postgres", os.Getenv("DATABASE_URL"))
 }
 
 func main() {

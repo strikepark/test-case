@@ -46,7 +46,7 @@ func (order Order) CreateOrder() (result Order, err error) {
 		return result, nil
 	}
 
-	return result, nil
+	return order, nil
 }
 
 func GetOrders() []*Order {

@@ -10,7 +10,7 @@ func init() {
 		beego.NSRouter("/orders", &c.OrderController{}, "put:CreateOrder"),
 		beego.NSRouter("/orders", &c.OrderController{}, "get:GetOrders"),
 		beego.NSRouter("/orders/:id", &c.OrderController{}, "get:GetOrder"),
-		//beego.NSRouter("/orders/:id", &с.OrderController{}, "put:UpdateOrder"),
+		beego.NSRouter("/orders/:id", &c.OrderController{}, "put:UpdateOrder"),
 
 		//beego.NSRouter("/orders/costumer/:code", &с.OrderController{}, "get:GetCostumerOrders"),
 	)

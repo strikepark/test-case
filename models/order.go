@@ -55,9 +55,9 @@ func GetOrders() []*Order {
 
 	var orders []*Order
 
-	num, err := o.QueryTable("orders").All(&orders)
+	_, err := o.QueryTable("orders").All(&orders)
 
-	if num > 0 {
+	if err != nil {
 		fmt.Println(err)
 	}
 
@@ -74,7 +74,30 @@ func GetOrder(uid string) (order Order, err error) {
 	err = o.Read(&order)
 
 	if err == orm.ErrNoRows {
-		fmt.Println(errors.New("not"))
+		return order, errors.New("404")
+	} else {
+		return order, nil
+	}
+}
+
+func UpdateOrder(order Order) (Order, error) {
+	o := orm.NewOrm()
+
+	valid := validation.Validation{}
+
+	valid.Required(order.Code, "Code is required")
+	valid.Required(order.SendAddress, "SendAddress is required")
+	valid.Required(order.RecipientAddress, "RecipientAddress is required")
+	valid.Required(order.PhoneNumber, "PhoneNumber is required")
+	valid.Required(order.Status, "Status is required")
+
+	if valid.HasErrors() {
+		return order, errors.New("TODO: order not vaild errors")
+	}
+
+	_, err := o.Update(&order)
+
+	if err != nil {
 		return order, errors.New("404")
 	} else {
 		return order, nil

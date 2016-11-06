@@ -13,7 +13,7 @@ import (
 
 type Order struct {
 	Id int `valid:"Required"`
-	Code int `valid:"Required"`
+	Code int64 `valid:"Required"`
 	SendAddress string
 	RecipientAddress string
 	PhoneNumber uint64
@@ -46,7 +46,7 @@ func GetOrders() []*Order {
 }
 
 func GetOrder(code string) (order Order, err error) {
-	uid, _ := strconv.Atoi(code)
+	uid, _ := strconv.ParseInt(code, 10, 64)
 
 	order = Order{Id: int(math.Abs(rand.Float64())), Code: uid}
 

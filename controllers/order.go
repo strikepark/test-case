@@ -7,6 +7,7 @@ import (
 	//"strconv"
 
 	m "planadotest/models"
+	"strconv"
 )
 
 // Order controller
@@ -15,7 +16,12 @@ type OrderController struct {
 }
 
 func (this *OrderController) NewOrder() {
-	order := m.Order{10, 99999999, "str1", "str2", 9999999999, "status1"}
+	code := this.Ctx.Input.Param(":code")
+
+	var intCode int
+
+	intCode, _ = strconv.Atoi(code)
+	order := m.Order{intCode, 99999999, "str1", "str2", 9999999999, "status1"}
 	err := order.NewOrder()
 
 	if err == nil {

@@ -16,7 +16,15 @@ type OrderController struct {
 
 func (this *OrderController) NewOrder() {
 	order := m.Order{99999999, "str1", "str2", 9999999999, "status1"}
-	order.NewOrder()
+	err := order.NewOrder()
+
+	if err != nil {
+		this.Data["json"] = "Ok"
+	} else {
+		this.Data["json"] = "Not ok"
+	}
+
+	this.ServeJSON()
 }
 
 func (this *OrderController) GetOrders() {

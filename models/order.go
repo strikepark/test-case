@@ -9,7 +9,7 @@ import (
 )
 
 type Order struct {
-	id int
+	Id int `valid:"Required"`
 	Code uint32 `valid:"Required"`
 	SendAddress string
 	RecipientAddress string
@@ -29,6 +29,7 @@ func (order Order) NewOrder() (err error) {
 
 	valid := validation.Validation{}
 	valid.Required(order.Code, "code")
+	valid.Required(order.Id, "Id")
 
 	if valid.HasErrors() {
 		return errors.New("Error: order not valid")

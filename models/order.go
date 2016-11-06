@@ -6,11 +6,14 @@ import (
 
 	"fmt"
 	"errors"
+	"strconv"
+	"math/rand"
+	"math"
 )
 
 type Order struct {
 	Id int `valid:"Required"`
-	Code uint32 `valid:"Required"`
+	Code int `valid:"Required"`
 	SendAddress string
 	RecipientAddress string
 	PhoneNumber uint64
@@ -40,6 +43,23 @@ func GetOrders() []*Order {
 	}
 
 	return orders
+}
+
+func GetOrder(code string) (order Order, err error) {
+	uid, _ := strconv.Atoi(code)
+
+	order = Order{Id: int(math.Abs(rand.Float64())), Code: uid}
+
+	o := orm.NewOrm()
+
+	err = o.Read(&order)
+
+	if err == orm.ErrNoRows {
+		fmt.Println(errors.New("not"))
+		return order, errors.New("404")
+	} else {
+		return order, nil
+	}
 }
 
 func (order Order) NewOrder() (err error) {

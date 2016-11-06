@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego"
 
 	"encoding/json"
-	"strconv"
+	//"strconv"
 
 	m "planadotest/models"
 )
@@ -32,14 +32,28 @@ func (this *OrderController) NewOrder() {
 func (this *OrderController) GetOrders() {
 	str, _ := json.Marshal(m.GetOrders())
 
+	//if str == "" {
+	//	this.Abort("403")
+	//}
+	//
+	//order, err := m.GetOrder(str)
+	//
+	//if err != nil {
+	//	this.Abort("500")
+	//} else {
+	//	this.Data["json"] = order
+	//}
+
 	this.Data["json"] = string(str)
 	this.ServeJSON()
 }
 
 func (this *OrderController) GetOrder() {
-	code, _ := strconv.Atoi(this.Ctx.Input.Param(":code"))
-	jsonCode, _ := json.Marshal(code)
+	code := this.Ctx.Input.Param(":code")
+	//jsonCode, _ := json.Marshal(code)
 
-	this.Data["json"] = string(jsonCode)
+	str, _ := m.GetOrder(code)
+	strJson, _ := json.Marshal(str)
+	this.Data["json"] = string(strJson)
 	this.ServeJSON()
 }

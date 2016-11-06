@@ -5,6 +5,7 @@ import (
 
 	m "planadotest/models"
 	"fmt"
+	"encoding/json"
 )
 
 type OrderController struct {
@@ -14,11 +15,11 @@ type OrderController struct {
 func (this *OrderController) CreateOrder() {
 	order := m.Order{}
 
-	fmt.Println("RequestBody: \n", this.Ctx.Input.RequestBody)
+	//fmt.Println("RequestBody: \n", this.Ctx.Input.RequestBody)
 
-	// json.Unmarshal(this.Ctx.Input.RequestBody, &order)
+	str, _ := json.Marshal(this.Ctx.Input.RequestBody) // , &order
 
-	fmt.Println("Order: \n", order)
+	fmt.Println("Order: \n", str)
 
 	result, err := order.CreateOrder()
 	if err == nil {

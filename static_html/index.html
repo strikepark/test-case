@@ -28,11 +28,8 @@
                         $.each(orders, function(orderIndex, order) {
                             $app.append('<ul class="order-' + orderIndex + '" style="margin: 20px;"></ul>')
 
-                            console.log(order);
-
-                            var $ul = $('.order' + orderIndex);
+                            var $ul = $('.order-' + orderIndex);
                             $.each(order, function(key, value) {
-                                console.log(value);
 
                                 $ul.append('<b>' + key + ':</b> ' + value);
                             });

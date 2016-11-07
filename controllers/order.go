@@ -23,6 +23,7 @@ func (this *OrderController) CreateOrder() {
 
 	result, err := order.CreateOrder()
 	if err != nil {
+		fmt.Println(err)
 		this.Abort("500")
 	} else {
 		history := m.History{Code: order.Code, Status: order.Status, Date: time.Now()}

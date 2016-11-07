@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"encoding/json"
 )
 
 type Order struct {
@@ -17,7 +18,7 @@ type Order struct {
 	PhoneNumber int64 `valid:"Required"`
 	Status string `valid:"Required"`
 
-	ChangeHistories []*History
+	ChangeHistories string
 }
 
 func init() {
@@ -76,7 +77,9 @@ func GetOrder(uid string) (order Order, err error) {
 
 	err = o.Read(&order)
 
-	order.ChangeHistories = GetHistory(order.Code)
+	history, _ := json.Marshal(GetHistory(order.Code))
+
+	order.ChangeHistories = string(history)
 
 	if err == orm.ErrNoRows {
 		return order, errors.New("404")

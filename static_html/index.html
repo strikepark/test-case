@@ -17,7 +17,7 @@
                 $.ajax({
                     url: apiUrl,
                     type: 'GET',
-                    // contentType: 'application/json; charset=utf-8',
+                    contentType: 'application/json; charset=utf-8',
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader('Cache-Control', 'no-cache');
                     },

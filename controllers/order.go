@@ -43,7 +43,6 @@ func (this *OrderController) CreateOrder() {
 
 func (this *OrderController) GetOrders() {
 	this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
-	this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 
 	orders := m.GetOrders()
 

@@ -14,19 +14,27 @@
             $(document).ready(function() {
                 var apiUrl = 'http://planadotest.heroku.com/api/orders';
 
-                $.get(apiUrl, function(data) {
-                    var orders = JSON.parse(data);
-                    var $app = $('#app');
+                $.ajax({
+                    url: apiUrl,
+                    type: 'GET',
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    },
+                    success: function(data) {
+                        var orders = JSON.parse(data);
+                        var $app = $('#app');
 
-                    $.each(orders, function(orderIndex, order) {
-                        $app.append('<ul class="order-' + orderIndex + '" style="margin: 20px;"></ul>')
+                        $.each(orders, function(orderIndex, order) {
+                            $app.append('<ul class="order-' + orderIndex + '" style="margin: 20px;"></ul>')
 
-                        var $ul = $('.order' + orderIndex);
-                        $.each(order, function(key, value) {
-                            $ul.append('<b>' + key + ':</b> ' + value);
+                            var $ul = $('.order' + orderIndex);
+                            $.each(order, function(key, value) {
+                                $ul.append('<b>' + key + ':</b> ' + value);
+                            });
                         });
-                    });
-                })
+                    }
+                });
             });
         </script>
     </body>

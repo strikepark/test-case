@@ -32,6 +32,7 @@ func (this *OrderController) CreateOrder() {
 
 		if err != nil {
 			fmt.Println("Error add history")
+			fmt.Println(err)
 		}
 
 		this.Data["json"] = result

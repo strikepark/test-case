@@ -45,7 +45,7 @@ func (history History) AddToHistory() (History, error) {
 
 	valid := validation.Validation{}
 
-	valid.Required(history.Code, "Code is required")
+	valid.Required(history.CodeFkey, "Code is required")
 	valid.Required(history.Status, "SendAddress is required")
 	valid.Required(history.Date, "RecipientAddress is required")
 

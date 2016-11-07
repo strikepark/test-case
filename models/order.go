@@ -17,7 +17,7 @@ type Order struct {
 	PhoneNumber int64 `valid:"Required"`
 	Status string `valid:"Required"`
 
-	//History []*History `orm:"reverse(many)"`
+	History []*History
 }
 
 func init() {
@@ -75,6 +75,8 @@ func GetOrder(uid string) (order Order, err error) {
 	o := orm.NewOrm()
 
 	err = o.Read(&order)
+
+	order.History = GetHistory(order.Code)
 
 	if err == orm.ErrNoRows {
 		return order, errors.New("404")

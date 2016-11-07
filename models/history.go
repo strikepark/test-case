@@ -14,8 +14,6 @@ type History struct {
 	Code int64 `valid:"Required";orm:"unique"`
 	Status string `valid:"Required"`
 	Date time.Time `valid:"Required"`
-
-	//Order *Order `orm:"rel(fk)"`
 }
 
 func init() {
@@ -26,12 +24,10 @@ func (u *History) TableName() string {
 	return "histories"
 }
 
-func GetHistory() []*History {
+func GetHistory(code int64) (histories []*History) {
 	o := orm.NewOrm()
 
-	var histories []*History
-
-	_, err := o.QueryTable("histories").All(&histories)
+	_, err := o.QueryTable("histories").Filter("code", code).All(&histories)
 
 	if err != nil {
 		fmt.Println(err)

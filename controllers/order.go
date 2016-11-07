@@ -26,7 +26,7 @@ func (this *OrderController) CreateOrder() {
 		fmt.Println(err)
 		this.Abort("500")
 	} else {
-		history := m.History{Code: order.Code, Status: order.Status, Date: time.Now()}
+		history := m.History{CodeFkey: order.Code, Status: order.Status, Date: time.Now()}
 
 		_, err = history.AddToHistory()
 

@@ -32,7 +32,7 @@ func init() {
 
 	res, err = o.Raw("CREATE TABLE IF NOT EXISTS " +
 		`histories("id" SERIAL PRIMARY KEY, "code" bigint UNIQUE REFERENCES orders, ` +
-		`"status" varchar(255), "date" date, )`).Exec()
+		`"status" varchar(255), "date" date)`).Exec()
 
 	if err == nil {
 		num, _ := res.RowsAffected()

@@ -26,7 +26,7 @@ func (this *OrderController) CreateOrder() {
 		fmt.Println(err)
 		this.Abort("500")
 	} else {
-		history := m.History{Code: order.Code, Status: order.Status, Date: time.Now()}
+		history := m.History{Code: result.Code, Status: result.Status, Date: time.Now()}
 
 		_, err = history.AddToHistory()
 
@@ -79,6 +79,15 @@ func (this *OrderController) UpdateOrder() {
 	if err != nil {
 		this.Abort("500")
 	} else {
+		history := m.History{Code: result.Code, Status: result.Status, Date: time.Now()}
+
+		_, err = history.AddToHistory()
+
+		if err != nil {
+			fmt.Println("Error add history")
+			fmt.Println(err)
+		}
+
 		this.Data["json"] = result
 	}
 

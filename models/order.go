@@ -18,7 +18,7 @@ type Order struct {
 	PhoneNumber int64 `valid:"Required"`
 	Status string `valid:"Required"`
 
-	ChangeHistories string
+	ChangeHistories string `orm:"-"`
 }
 
 func init() {

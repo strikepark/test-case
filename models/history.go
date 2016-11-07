@@ -11,7 +11,7 @@ import (
 
 type History struct {
 	Id int
-	Code int64 `valid:"Required";orm:"unique"`
+	CodeFkey int64 `valid:"Required";orm:"unique"`
 	Status string `valid:"Required"`
 	Date time.Time `valid:"Required"`
 

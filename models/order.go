@@ -31,6 +31,7 @@ func (u *Order) TableName() string {
 func (order Order) CreateOrder() (Order, error) {
 	o := orm.NewOrm()
 
+
 	valid := validation.Validation{}
 
 	valid.Required(order.Code, "Code is required")

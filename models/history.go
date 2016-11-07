@@ -11,7 +11,7 @@ import (
 
 type History struct {
 	Id int
-	CodeFkey int64 `valid:"Required";orm:"unique"`
+	Code int64 `valid:"Required";orm:"unique"`
 	Status string `valid:"Required"`
 	Date time.Time `valid:"Required"`
 
@@ -45,7 +45,7 @@ func (history History) AddToHistory() (History, error) {
 
 	valid := validation.Validation{}
 
-	valid.Required(history.CodeFkey, "Code is required")
+	valid.Required(history.Code, "Code is required")
 	valid.Required(history.Status, "SendAddress is required")
 	valid.Required(history.Date, "RecipientAddress is required")
 

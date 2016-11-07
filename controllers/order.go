@@ -42,11 +42,11 @@ func (this *OrderController) CreateOrder() {
 }
 
 func (this *OrderController) GetOrders() {
-	this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
-
 	orders := m.GetOrders()
 
 	this.Data["json"] = orders
+
+	this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
 	this.ServeJSON()
 }
 

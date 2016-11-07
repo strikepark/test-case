@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    var apiUrl = '//planadotest.heroku.com/api/';
+    var apiUrl = 'planadotest.heroku.com/api/orders';
 
-    $.get(apiUrl + 'orders', function(data) {
+    $.get(apiUrl, function(data) {
         var orders = JSON.parse(data);
         var $app = $('#app');
 

@@ -15,7 +15,7 @@ type History struct {
 	Status string `valid:"Required"`
 	Date time.Time `valid:"Required"`
 
-	Order *Order `orm:"rel(fk)"`
+	//Order *Order `orm:"rel(fk)"`
 }
 
 func init() {

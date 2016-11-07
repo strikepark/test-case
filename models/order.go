@@ -17,7 +17,7 @@ type Order struct {
 	PhoneNumber int64 `valid:"Required"`
 	Status string `valid:"Required"`
 
-	History []*History `orm:"reverse(many)"`
+	//History []*History `orm:"reverse(many)"`
 }
 
 func init() {

@@ -25,7 +25,7 @@ func init() {
 		`"send_address" varchar(255), "recipient_address" varchar(255), ` +
 		`"phone_number" bigint, "status" varchar(255))`).Exec()
 
-	if err == nil {
+	if err != nil {
 		num, _ := res.RowsAffected()
 		fmt.Println("postgres row affected nums: ", num)
 	}
@@ -34,7 +34,7 @@ func init() {
 		`histories("id" SERIAL PRIMARY KEY, "code" bigint UNIQUE REFERENCES orders, ` +
 		`"status" varchar(255), "date" date)`).Exec()
 
-	if err == nil {
+	if err != nil {
 		num, _ := res.RowsAffected()
 		fmt.Println("postgres row affected nums: ", num)
 	}

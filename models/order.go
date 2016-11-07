@@ -79,7 +79,7 @@ func GetOrder(uid string) (order Order, err error) {
 
 	history, _ := json.Marshal(GetHistory(order.Code))
 
-	order.ChangeHistories = string(history)
+	order.ChangeHistories, _ = strconv.Unquote(string(history))
 
 	if err == orm.ErrNoRows {
 		return order, errors.New("404")

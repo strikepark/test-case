@@ -31,7 +31,7 @@ func init() {
 	}
 
 	res, err = o.Raw("CREATE TABLE IF NOT EXISTS " +
-		`histories("id" SERIAL PRIMARY KEY, "code" bigint UNIQUE REFERENCES orders (code), ` +
+		`histories("id" SERIAL PRIMARY KEY, "code" bigint REFERENCES orders (code), ` +
 		`"status" varchar(255), "date" date)`).Exec()
 
 	if err != nil {

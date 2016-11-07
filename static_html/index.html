@@ -12,14 +12,14 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
             $(document).ready(function() {
-                var apiUrl = 'planadotest.heroku.com/api/orders';
+                var apiUrl = 'http://planadotest.heroku.com/api/orders';
 
                 $.ajax({
                     url: apiUrl,
                     type: 'GET',
-                    contentType: 'application/json; charset=utf-8',
+                    // contentType: 'application/json; charset=utf-8',
                     beforeSend: function(xhr) {
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.setRequestHeader('Cache-Control', 'no-cache');
                     },
                     success: function(data) {
                         var orders = JSON.parse(data);

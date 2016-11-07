@@ -6,6 +6,8 @@ import (
 	m "planadotest/models"
 	"encoding/json"
 	"strconv"
+	"time"
+	"fmt"
 )
 
 type OrderController struct {
@@ -23,6 +25,14 @@ func (this *OrderController) CreateOrder() {
 	if err != nil {
 		this.Abort("500")
 	} else {
+		history := m.History{Code: order.Code, Status: order.Status, Date: time.Now()}
+
+		_, err = history.AddToHistory()
+
+		if err != nil {
+			fmt.Println("Error add history")
+		}
+
 		this.Data["json"] = result
 	}
 
@@ -30,7 +40,6 @@ func (this *OrderController) CreateOrder() {
 }
 
 func (this *OrderController) GetOrders() {
-
 	orders := m.GetOrders()
 
 	this.Data["json"] = orders

@@ -24,6 +24,16 @@ func init() {
 		`orders("id" SERIAL PRIMARY KEY, "code" bigint UNIQUE, ` +
 		`"send_address" varchar(255), "recipient_address" varchar(255), ` +
 		`"phone_number" bigint, "status" varchar(255))`).Exec()
+
+	if err == nil {
+		num, _ := res.RowsAffected()
+		fmt.Println("postgres row affected nums: ", num)
+	}
+
+	res, err = o.Raw("CREATE TABLE IF NOT EXISTS " +
+		`histories("id" SERIAL PRIMARY KEY, "code" bigint UNIQUE REFERENCES orders, ` +
+		`"status" varchar(255), "date" date, )`).Exec()
+
 	if err == nil {
 		num, _ := res.RowsAffected()
 		fmt.Println("postgres row affected nums: ", num)

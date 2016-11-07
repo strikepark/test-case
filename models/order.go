@@ -10,12 +10,14 @@ import (
 )
 
 type Order struct {
-	Id int `form:"-"`
-	Code int64 `valid:"Required";form:"code"`
-	SendAddress string `valid:"Required";form:"sendAddress"`
-	RecipientAddress string `valid:"Required";form:"recipientAddress"`
-	PhoneNumber int64 `valid:"Required";form:"phoneNumber"`
-	Status string `valid:"Required";form:"status"`
+	Id int
+	Code int64 `valid:"Required";orm:"unique"`
+	SendAddress string `valid:"Required"`
+	RecipientAddress string `valid:"Required"`
+	PhoneNumber int64 `valid:"Required"`
+	Status string `valid:"Required"`
+
+	History []*History `orm:"reverse(many)"`
 }
 
 func init() {

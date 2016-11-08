@@ -14,8 +14,10 @@ type WsController struct {
 	beego.Controller
 }
 
+var upgrader = websocket.Upgrader{}
+
 func (this *WsController) WsHandle() {
-	_, err := websocket.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil, 1024, 1024)
+	_, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 	if err != nil {
 		fmt.Println(err)
 	} else {

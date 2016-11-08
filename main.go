@@ -6,7 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 
 	"os"
-	//"strconv"
+	"strconv"
 	//"database/sql"
 	//"log"
 
@@ -41,11 +41,11 @@ func init() {
 }
 
 func main() {
-	//port, err := strconv.Atoi(os.Getenv("PORT"))
+	port, err := strconv.Atoi(os.Getenv("PORT"))
 
-	//if err == nil {
-		beego.BConfig.Listen.HTTPPort = 8080
-	//}
+	if err == nil {
+		beego.BConfig.Listen.HTTPPort = port
+	}
 
 	beego.SetStaticPath("/", "static_html")
 

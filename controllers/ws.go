@@ -12,7 +12,7 @@ type WsController struct {
 var upgrader = websocket.Upgrader{}
 
 func (this *WsController) WsHandle() {
-	conn, _ := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
+	var conn, _ = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 
 	go func(conn *websocket.Conn) {
 		for {

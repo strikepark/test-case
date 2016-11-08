@@ -1,53 +1,92 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
-	_ "github.com/lib/pq"
-	"github.com/astaxie/beego/orm"
-
-	"os"
-	"strconv"
-	//"database/sql"
-	//"log"
-
-	_ "planadotest/routers"
+	"golang.org/x/net/websocket"
+	"net/http"
 	"fmt"
+	"strconv"
+	"os"
 )
 
-func init() {
-	orm.RegisterDriver("postgres", orm.DRPostgres)
-	orm.RegisterDataBase("default", "postgres", os.Getenv("DATABASE_URL"))
+func echoHandler(ws *websocket.Conn) {
 
-	o := orm.NewOrm()
+	for {
+		receivedtext := make([]byte, 100)
 
-	res, err := o.Raw("CREATE TABLE IF NOT EXISTS " +
-		`orders("id" SERIAL PRIMARY KEY, "code" bigint UNIQUE, ` +
-		`"send_address" varchar(255), "recipient_address" varchar(255), ` +
-		`"phone_number" bigint, "status" varchar(255))`).Exec()
+		n, err := ws.Read(receivedtext)
 
-	if err != nil {
-		num, _ := res.RowsAffected()
-		fmt.Println("postgres row affected nums: ", num)
-	}
+		if err != nil {
+			fmt.Printf("Received: %d bytes\n",n)
+		}
 
-	res, err = o.Raw("CREATE TABLE IF NOT EXISTS " +
-		`histories("id" SERIAL PRIMARY KEY, "code" bigint REFERENCES orders (code), ` +
-		`"status" varchar(255), "date" date)`).Exec()
-
-	if err != nil {
-		num, _ := res.RowsAffected()
-		fmt.Println("postgres row affected nums: ", num)
+		s := string(receivedtext[:n])
+		fmt.Printf("Received: %d bytes: %s\n",n,s)
 	}
 }
 
 func main() {
-	port, err := strconv.Atoi(os.Getenv("PORT"))
-
-	if err == nil {
-		beego.BConfig.Listen.HTTPPort = port
+	port, err1 := strconv.Atoi(os.Getenv("PORT"))
+	portStr := ":8080"
+	if err1 == nil {
+		portStr = ":" + string(port)
 	}
 
-	beego.SetStaticPath("/", "static_html")
-
-	beego.Run()
+	http.Handle("/echo", websocket.Handler(echoHandler))
+	http.Handle("/", http.FileServer(http.Dir(".")))
+	err := http.ListenAndServe(portStr, nil)
+	if err != nil {
+		panic("Error: " + err.Error())
+	}
 }
+
+//import (
+//	"github.com/astaxie/beego"
+//	_ "github.com/lib/pq"
+//	"github.com/astaxie/beego/orm"
+//
+//	"os"
+//	"strconv"
+//	//"database/sql"
+//	//"log"
+//
+//	_ "planadotest/routers"
+//	"fmt"
+//)
+//
+//func init() {
+//	orm.RegisterDriver("postgres", orm.DRPostgres)
+//	orm.RegisterDataBase("default", "postgres", os.Getenv("DATABASE_URL"))
+//
+//	o := orm.NewOrm()
+//
+//	res, err := o.Raw("CREATE TABLE IF NOT EXISTS " +
+//		`orders("id" SERIAL PRIMARY KEY, "code" bigint UNIQUE, ` +
+//		`"send_address" varchar(255), "recipient_address" varchar(255), ` +
+//		`"phone_number" bigint, "status" varchar(255))`).Exec()
+//
+//	if err != nil {
+//		num, _ := res.RowsAffected()
+//		fmt.Println("postgres row affected nums: ", num)
+//	}
+//
+//	res, err = o.Raw("CREATE TABLE IF NOT EXISTS " +
+//		`histories("id" SERIAL PRIMARY KEY, "code" bigint REFERENCES orders (code), ` +
+//		`"status" varchar(255), "date" date)`).Exec()
+//
+//	if err != nil {
+//		num, _ := res.RowsAffected()
+//		fmt.Println("postgres row affected nums: ", num)
+//	}
+//}
+
+//func main() {
+	//port, err := strconv.Atoi(os.Getenv("PORT"))
+	//
+	//if err == nil {
+	//	beego.BConfig.Listen.HTTPPort = port
+	//}
+	//
+	//beego.SetStaticPath("/", "static_html")
+	//
+	//beego.Run()
+//}

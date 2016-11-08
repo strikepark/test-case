@@ -3,7 +3,8 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/gorilla/websocket"
-	"log"
+
+	"net/http"
 	"fmt"
 )
 
@@ -11,28 +12,23 @@ type WsController struct {
 	beego.Controller
 }
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-}
-
-type message struct {
-	Handle string `json:"handle"`
-	Text   string `json:"text"`
-}
-
 func (this *WsController) WsHandle() {
-	fmt.Println("http://" + this.Ctx.Request.Host)
-
-	if this.Ctx.Request.Header.Get("Origin") != ("http://" + this.Ctx.Request.Host) {
-		fmt.Println(this.Ctx.ResponseWriter, "Origin not allowed", 403)
+	ws, err := websocket.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil, 1024, 1024)
+	if _, ok := err.(websocket.HandshakeError); ok {
+		//fmt.Println(this.Ctx.ResponseWriter, "Not a websocket handshake", 400)
+		http.Error(this.Ctx.ResponseWriter, "Not a websocket handshake", 400)
+		return
+	} else if err != nil {
+		beego.Error("Cannot setup WebSocket connection:", err)
 		return
 	}
 
-	_, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
-	if err != nil {
-		m := "Unable to upgrade to websockets"
-		log.Println("err", err, m)
-		return
+	for {
+		_, p, err := ws.ReadMessage()
+		if err != nil {
+			return
+		}
+
+		fmt.Println(string(p))
 	}
 }

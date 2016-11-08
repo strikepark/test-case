@@ -12,9 +12,6 @@ import (
 
 	_ "planadotest/routers"
 	"fmt"
-	"github.com/gorilla/websocket"
-	"net/http"
-	"time"
 )
 
 func init() {
@@ -43,14 +40,6 @@ func init() {
 	}
 }
 
-type myStruct struct {
-	Username  string `json:"username"`
-	FirstName string `json:"firstName"`
-	LastName  string `json:"lastName"`
-}
-
-var upgrader = websocket.Upgrader{}
-
 func main() {
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 
@@ -58,37 +47,7 @@ func main() {
 		beego.BConfig.Listen.HTTPPort = port
 	}
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static_html/index.html")
-	})
+	beego.SetStaticPath("/", "static_html")
 
-	http.HandleFunc("/v4/ws", func(w http.ResponseWriter, r *http.Request) {
-		var conn, _ = upgrader.Upgrade(w, r, nil)
-		go func(conn *websocket.Conn) {
-			for {
-				_, _, err := conn.ReadMessage()
-				if err != nil {
-					conn.Close()
-				}
-			}
-		}(conn)
-
-		go func(conn *websocket.Conn) {
-			ch := time.Tick(5 * time.Second)
-
-			for range ch {
-				conn.WriteJSON(myStruct{
-					Username:  "mvansickle",
-					FirstName: "Michael",
-					LastName:  "Van Sickle",
-				})
-			}
-		}(conn)
-	})
-
-	http.ListenAndServe(":" + string(port), nil)
-
-	//beego.SetStaticPath("/", "static_html")
-
-	//beego.Run()
+	beego.Run()
 }

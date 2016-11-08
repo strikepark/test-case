@@ -5,30 +5,42 @@ import (
 	"github.com/gorilla/websocket"
 
 	//"net/http"
-	"fmt"
+	//"fmt"
+	"time"
 )
 
 type WsController struct {
 	beego.Controller
 }
 
+type myStruct struct {
+	Username  string `json:"username"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+}
+
+var upgrader = websocket.Upgrader{}
+
 func (this *WsController) WsHandle() {
-	ws, err := websocket.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil, 1024, 1024)
-	if _, ok := err.(websocket.HandshakeError); ok {
-		fmt.Println(this.Ctx.ResponseWriter, "Not a websocket handshake", 400)
-		//http.Error(this.Ctx.ResponseWriter, "Not a websocket handshake", 400)
-		return
-	} else if err != nil {
-		beego.Error("Cannot setup WebSocket connection:", err)
-		return
-	}
-
-	for {
-		_, p, err := ws.ReadMessage()
-		if err != nil {
-			return
+	var conn, _ = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
+	go func(conn *websocket.Conn) {
+		for {
+			_, _, err := conn.ReadMessage()
+			if err != nil {
+				conn.Close()
+			}
 		}
+	}(conn)
 
-		fmt.Println(string(p))
-	}
+	go func(conn *websocket.Conn) {
+		ch := time.Tick(5 * time.Second)
+
+		for range ch {
+			conn.WriteJSON(myStruct{
+				Username:  "mvansickle",
+				FirstName: "Michael",
+				LastName:  "Van Sickle",
+			})
+		}
+	}(conn)
 }

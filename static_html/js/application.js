@@ -1,4 +1,4 @@
-var box = new ReconnectingWebSocket(location.protocol.replace("http","ws") + "//" + location.host + "/ws");
+var box = new ReconnectingWebSocket(location.protocol.replace("http", "ws") + "//" + location.host + "/ws");
 
 box.onmessage = function(message) {
   var data = JSON.parse(message.data);

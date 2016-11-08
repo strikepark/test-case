@@ -15,18 +15,34 @@
 
             // var box = new ReconnectingWebSocket(location.protocol.replace("http", "ws") + "//" + location.host + ":" + location.port + "/ws");
 
-            //var socket = new WebSocket(location.protocol.replace("http", "ws") + "//" + location.host + ":" + location.port + "/ws");
+            var socket = new WebSocket(location.protocol.replace("http", "ws") + "//" + location.host + ":" + location.port + "/ws");
 
-            $.ajax({
-type: "GET",
-url: "planadotest.herokuapp.com/ws",
-beforeSend: function(xhr) {
-    xhr.setRequestHeader('Connection', 'Upgrade');
-    xhr.setRequestHeader('Upgrade', 'websocket');
-    xhr.setRequestHeader('Sec-WebSocket-Key', 'RpbG2aB8xJH3H5ga96SoOg==');
-    xhr.setRequestHeader('Sec-WebSocket-Version', '13');
-},
-})
+            $(document).ready(function() {
+                var apiUrl = '/api/orders';
+
+                $.ajax({
+                    url: apiUrl,
+                    type: 'GET',
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Cache-Control', 'no-cache');
+                    },
+                    success: function(data) {
+                        var orders = data;
+                        var $app = $('#app');
+
+                        $.each(orders, function(orderIndex, order) {
+                            $app.append('<ul class="order-' + orderIndex + '" style="margin: 20px;"></ul>')
+
+                            var $ul = $('.order-' + orderIndex);
+                            $.each(order, function(key, value) {
+                                if (key !== '' && value !== '')
+                                    $ul.append('<li><b>' + key + ':</b> ' + value + '</li>');
+                            });
+                        });
+                    }
+                });
+            });
         </script>
     </body>
 </html>

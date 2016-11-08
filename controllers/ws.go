@@ -2,25 +2,15 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/gorilla/websocket"
+	"golang.org/x/net/websocket"
 
-	//"net/http"
-	//"fmt"
-	//"time"
-	"fmt"
+	"io"
 )
 
 type WsController struct {
 	beego.Controller
 }
 
-var upgrader = websocket.Upgrader{}
-
-func (this *WsController) WsHandle() {
-	_, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("Not err")
-	}
+func (this *WsController) WsHandle(ws *websocket.Conn) {
+	io.Copy(ws, ws)
 }

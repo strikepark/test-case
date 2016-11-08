@@ -57,6 +57,11 @@
 			"Rev": "b635af5a8cd798ae9ede1adb6f9472fa87361168"
 		},
 		{
+			"ImportPath": "github.com/gorilla/websocket",
+			"Comment": "v1.0.0-37-g9fbf129",
+			"Rev": "9fbf129ff2a3cf2467f7d0021de2eb4d3aecc109"
+		},
+		{
 			"ImportPath": "github.com/lib/pq",
 			"Comment": "go1.0-cutoff-127-gd8eeeb8",
 			"Rev": "d8eeeb8bae8896dd8e1b7e514ab0d396c4f12a1b"
@@ -65,6 +70,10 @@
 			"ImportPath": "github.com/lib/pq/oid",
 			"Comment": "go1.0-cutoff-127-gd8eeeb8",
 			"Rev": "d8eeeb8bae8896dd8e1b7e514ab0d396c4f12a1b"
+		},
+		{
+			"ImportPath": "golang.org/x/net/websocket",
+			"Rev": "e36fcd2311066d2dd958b37045679be1d8a4b483"
 		}
 	]
 }

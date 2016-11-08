@@ -7,6 +7,7 @@ import (
 	//"net/http"
 	//"fmt"
 	"time"
+	"fmt"
 )
 
 type WsController struct {
@@ -22,7 +23,12 @@ type myStruct struct {
 var upgrader = websocket.Upgrader{}
 
 func (this *WsController) WsHandle() {
-	var conn, _ = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
+	var conn, err = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
+	if err != nil {
+		fmt.Println("Error")
+		return
+	}
+
 	for {
 		_, _, err := conn.ReadMessage()
 		if err != nil {
@@ -30,15 +36,15 @@ func (this *WsController) WsHandle() {
 		}
 	}
 
-	go func(conn *websocket.Conn) {
-		ch := time.Tick(5 * time.Second)
-
-		for range ch {
-			conn.WriteJSON(myStruct{
-				Username:  "mvansickle",
-				FirstName: "Michael",
-				LastName:  "Van Sickle",
-			})
-		}
-	}(conn)
+	//go func(conn *websocket.Conn) {
+	//	ch := time.Tick(5 * time.Second)
+	//
+	//	for range ch {
+	//		conn.WriteJSON(myStruct{
+	//			Username:  "mvansickle",
+	//			FirstName: "Michael",
+	//			LastName:  "Van Sickle",
+	//		})
+	//	}
+	//}(conn)
 }

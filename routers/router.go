@@ -2,16 +2,12 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"golang.org/x/net/websocket"
+
 	c "planadotest/controllers"
-	"io"
-	"net/http"
 )
 
 func init() {
-	//beego.Router("/ws", websocket.Handler(WsHandle))
-
-	http.Handle("/echo", websocket.Handler(WsHandle))
+	beego.Router("/ws", &c.WsController{}, "*:websocket.Handler(WsHandle)")
 
 	ns := beego.NewNamespace("/api",
 		beego.NSRouter("/orders", &c.OrderController{}, "put:CreateOrder"),
@@ -24,8 +20,4 @@ func init() {
 	)
 
 	beego.AddNamespace(ns)
-}
-
-func WsHandle(ws *websocket.Conn) {
-	io.Copy(ws, ws)
 }

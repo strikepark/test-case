@@ -7,9 +7,11 @@
 
     <body>
         <div id="app"></div>
+        <div id="change"></div>
+
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
-            $(document).ready(function() {
+            function showOrders() {
                 var apiUrl = '/api/orders';
                 $.ajax({
                     url: apiUrl,
@@ -31,7 +33,42 @@
                         });
                     }
                 });
+            }
+
+            function wcConnect() {
+                var apiUrl = 'wss://planadotest.herokuapp.com/ws';
+                var ws = new WebSocket(apiUrl);
+
+                socket.onopen = function() {
+                    console.log("Соединение установлено.");
+                };
+
+                socket.onclose = function(event) {
+                    if (event.wasClean) {
+                        console.log('Соединение закрыто чисто');
+                    } else {
+                        console.log('Обрыв соединения');
+                    }
+
+                    console.log('Код: ' + event.code + ' причина: ' + event.reason);
+                };
+
+                socket.onerror = function(error) {
+                    console.log("Ошибка " + error.message);
+                };
+
+                ws.onmessege = function(event) {
+                    var data = JSON.parse(event.data);
+                    console.log(data);
+                }
+            }
+
+            $(document).ready(function() {
+                showOrders();
+                wcConnect();
             });
+
+
         </script>
     </body>
 </html>

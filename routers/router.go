@@ -2,12 +2,11 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-
 	c "planadotest/controllers"
 )
 
 func init() {
-	beego.Router("/ws", &c.WsController{}, "*:websocket.Handler(WsHandle)")
+	beego.Router("/ws", &c.WsController{}, "*:WsHandle")
 
 	ns := beego.NewNamespace("/api",
 		beego.NSRouter("/orders", &c.OrderController{}, "put:CreateOrder"),

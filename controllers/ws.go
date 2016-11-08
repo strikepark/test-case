@@ -19,6 +19,7 @@ var upgrader = websocket.Upgrader{}
 func (this *WsController) WsHandle() {
 	_, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 	if err != nil {
+		fmt.Println(this.Ctx.ResponseWriter)
 		fmt.Println(err)
 	} else {
 		fmt.Println("Not err")

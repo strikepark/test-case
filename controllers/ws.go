@@ -3,14 +3,11 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 
-	//"net/http"
-	//"fmt"
-	//"time"
+
 	"fmt"
 	"github.com/gorilla/websocket"
 	"encoding/json"
 	"github.com/pkg/errors"
-	"net/http"
 	"io"
 )
 
@@ -20,20 +17,17 @@ type WsController struct {
 
 var upgrader = websocket.Upgrader{}
 
-// message sent to us by the javascript client
-type message struct {
-	Handle string `json:"handle"`
-	Text   string `json:"text"`
+type updateMessege struct {
+	Update bool
+	History string
 }
 
-func validateMessage(data []byte) (message, error) {
-	var msg message
-
-	if err := json.Unmarshal(data, &msg); err != nil {
+func validateMessage(data []byte) (msg updateMessege, err error) {
+	if err = json.Unmarshal(data, &msg); err != nil {
 		return msg, errors.Wrap(err, "Unmarshaling message")
 	}
 
-	if msg.Handle == "" && msg.Text == "" {
+	if msg.Update == false && msg.History == "" {
 		return msg, errors.New("Message has no Handle or Text")
 	}
 
@@ -43,45 +37,32 @@ func validateMessage(data []byte) (message, error) {
 func (this *WsController) WsHandle() {
 	ws, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 	if err != nil {
-		m := "Unable to upgrade to websockets"
-		fmt.Println("err", err, m)
-		http.Error(this.Ctx.ResponseWriter, m, http.StatusBadRequest)
+		fmt.Println("Websocket error(connection): ", err)
 		return
 	}
-
-	fmt.Println("РАБОТАЕТ")
-
-	if err != nil {
-		m := "Unable to upgrade to websockets"
-		fmt.Println("err", err, m)
-		http.Error(this.Ctx.ResponseWriter, m, http.StatusBadRequest)
-		return
-	}
-
-	fmt.Println("РАБОТАЕТ")
 
 	for {
-		mt, data, err := ws.ReadMessage()
+		messageType, data, err := ws.ReadMessage()
 		if err != nil {
 			if err == io.EOF {
-				fmt.Println("Websocket closed!")
+				fmt.Println("Websocket error(closed): ", err)
 			} else {
-				fmt.Println("Error reading websocket message")
+				fmt.Println("Websocket error(reading messege): ", err)
 			}
 
 			break
 		}
 
-		switch mt {
-		case websocket.TextMessage:
-			msg, err := validateMessage(data)
-			if err != nil {
-				fmt.Println("msg:", msg, "err:", err)
-				break
-			}
-			fmt.Println(string(data[:]))
-		default:
-			fmt.Println("Unknown Message!")
+		switch messageType {
+			case websocket.TextMessage:
+				msg, err := validateMessage(data)
+				if err != nil {
+					fmt.Println("Websocket error(validation messege): ", err, msg)
+					break
+				}
+				fmt.Println(msg)
+			default:
+				fmt.Println("Websocket error: unknown messageType!")
 		}
 	}
 

@@ -23,14 +23,12 @@ var upgrader = websocket.Upgrader{}
 
 func (this *WsController) WsHandle() {
 	var conn, _ = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
-	go func(conn *websocket.Conn) {
-		for {
-			_, _, err := conn.ReadMessage()
-			if err != nil {
-				conn.Close()
-			}
+	for {
+		_, _, err := conn.ReadMessage()
+		if err != nil {
+			conn.Close()
 		}
-	}(conn)
+	}
 
 	go func(conn *websocket.Conn) {
 		ch := time.Tick(5 * time.Second)

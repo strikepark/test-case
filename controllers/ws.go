@@ -4,6 +4,8 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/gorilla/websocket"
 	"log"
+	"net/http"
+	"io"
 )
 
 type WsController struct {
@@ -15,27 +17,41 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
+type message struct {
+	Handle string `json:"handle"`
+	Text   string `json:"text"`
+}
+
 func (this *WsController) WsHandle() {
-	var conn, err = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
+	if this.Ctx.Request.Header.Get("Origin") != ("http://" + this.Ctx.Request.Host) {
+		http.Error(this.Ctx.ResponseWriter, "Origin not allowed", 403)
+		return
+	}
+	
+	ws, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 	if err != nil {
-		log.Println(err)
+		m := "Unable to upgrade to websockets"
+		log.Println("err", err, m)
 		return
 	}
 
-	//go func(conn *websocket.Conn) {
-		for {
-			mType, msg, err := conn.ReadMessage()
-			if err != nil {
-				log.Println(err)
-				return
-			}
-
-			if err = conn.WriteMessage(mType, msg); err != nil {
-				log.Println(err)
-				return
-			}
-
-			conn.WriteMessage(mType, msg)
+	for {
+		mt, data, err := ws.ReadMessage()
+		if err != nil {
+			log.Println("Websocket closed!", err)
+			break
 		}
-	//}(conn)
+
+		switch mt {
+			case websocket.TextMessage:
+				msg, err := validateMessage(data)
+				if err != nil {
+					log.Println("Websocket closed!", err)
+					break
+				}
+			rw.publish(data)
+			default:
+			l.Warning("Unknown Message!")
+		}
+	}
 }

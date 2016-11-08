@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strconv"
 	"os"
+	"log"
 )
 
 func echoHandler(ws *websocket.Conn) {
@@ -24,16 +25,23 @@ func echoHandler(ws *websocket.Conn) {
 	}
 }
 
+func determineListenAddress() (string, error) {
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "", fmt.Errorf("$PORT not set")
+	}
+	return ":" + port, nil
+}
+
 func main() {
-	port, err1 := strconv.Atoi(os.Getenv("PORT"))
-	portStr := ":8080"
-	if err1 == nil {
-		portStr = ":" + string(port)
+	addr, err := determineListenAddress()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/", http.FileServer(http.Dir(".")))
-	err := http.ListenAndServe(portStr, nil)
+	err = http.ListenAndServe(addr, nil)
 	if err != nil {
 		panic("Error: " + err.Error())
 	}

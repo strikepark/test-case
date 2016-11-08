@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	beego.Router("/ws", &c.WsController{}, "*:WsHandle")
+	beego.Router("/ws", &c.WsController{}, "get:WsHandle")
 
 	ns := beego.NewNamespace("/api",
 		beego.NSRouter("/orders", &c.OrderController{}, "put:CreateOrder"),

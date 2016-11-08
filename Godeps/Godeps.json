@@ -72,6 +72,11 @@
 			"Rev": "d8eeeb8bae8896dd8e1b7e514ab0d396c4f12a1b"
 		},
 		{
+			"ImportPath": "github.com/pkg/errors",
+			"Comment": "v0.8.0-2-g248dadf",
+			"Rev": "248dadf4e9068a0b3e79f02ed0a610d935de5302"
+		},
+		{
 			"ImportPath": "golang.org/x/net/websocket",
 			"Rev": "e36fcd2311066d2dd958b37045679be1d8a4b483"
 		}

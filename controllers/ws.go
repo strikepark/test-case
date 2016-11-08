@@ -20,7 +20,7 @@ func (this *WsController) WsHandle() {
 	fmt.Println("Upgrade: " + string(this.Ctx.Request.FormValue("Upgrade")))
 
 	_, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
-	
+
 	if err != nil {
 		fmt.Println(this.Ctx.Request)
 		fmt.Println(err)

@@ -53,16 +53,17 @@
                     console.log("Ошибка " + error.message);
                 };
 
-                ws.onmessege = function(event) {
-                    var data = JSON.parse(event.data);
-                    console.log(data);
-                }
-
                 ws.onopen = function() {
                     console.log("Соединение установлено.");
 
                     ws.send(JSON.stringify({Update: true, History: "text"}))
                 };
+
+                ws.onmessege = function(event) {
+                    console.log("Сработало");
+                    var data = JSON.parse(event.data);
+                    console.log(data);
+                }
             }
 
             $(document).ready(function() {

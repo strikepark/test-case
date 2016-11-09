@@ -2,12 +2,14 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"golang.org/x/net/websocket"
 
 	m "planadotest/models"
 	"encoding/json"
 	"strconv"
 	"time"
 	"fmt"
+	"io"
 )
 
 type OrderController struct {
@@ -66,6 +68,13 @@ func (this *OrderController) GetOrder() {
 	this.ServeJSON()
 }
 
+var wsConn *websocket.Conn
+
+func WsHandler(ws *websocket.Conn) {
+	wsConn = ws
+	io.Copy(ws, ws)
+}
+
 func (this *OrderController) UpdateOrder() {
 	id, _ := strconv.Atoi(this.Ctx.Input.Param(":id"))
 	idStr := strconv.Itoa(id)
@@ -91,7 +100,8 @@ func (this *OrderController) UpdateOrder() {
 		}
 
 		fmt.Println("Exec webscocket func")
-		//go WsSend(ws)
+
+		io.Copy(wsConn, wsConn)
 
 		this.Data["json"] = result
 	}

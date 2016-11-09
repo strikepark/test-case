@@ -39,31 +39,27 @@
                 var apiUrl = 'ws://planadotest.herokuapp.com/ws';
                 var ws = new WebSocket(apiUrl);
 
-                ws.onclose = function(event) {
-                    if (event.wasClean) {
-                        console.log('Соединение закрыто чисто');
-                    } else {
-                        console.log('Обрыв соединения');
-                    }
+                $(document)
+                    .on('open', ws, function() {
+                        console.log("Соединение установлено.");
 
-                    console.log('Код: ' + event.code + ' причина: ' + event.reason);
-                };
+                        ws.send(JSON.stringify({code: 18}))
+                    })
+                    .on('error', ws, function(err) {
+                        console.log("Ошибка " + error.message);
+                    })
+                    .on('close', ws, function(e) {
+                        if (e.wasClean) {
+                            console.log('Соединение закрыто чисто');
+                        } else {
+                            console.log('Обрыв соединения');
+                        }
 
-                ws.onerror = function(error) {
-                    console.log("Ошибка " + error.message);
-                };
-
-                ws.onopen = function() {
-                    console.log("Соединение установлено.");
-
-                    ws.send(JSON.stringify({code: 18}))
-                };
-
-                ws.onmessege = function(event) {
-                    console.log("Сработало");
-                    var data = JSON.parse(event.data);
-                    console.log(data);
-                }
+                        console.log('Код: ' + e.code + ' причина: ' + e.reason);
+                    })
+                    .on('messege', ws, function(e) {
+                        console.log(JSON.parse(e.data))
+                    });
             }
 
             $(document).ready(function() {

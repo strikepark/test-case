@@ -15,12 +15,12 @@ type WsController struct {
 	beego.Controller
 }
 
-var upgrader = websocket.Upgrader{}
-
 type updateMessege struct {
 	Update bool
 	History string
 }
+
+var upgrader = websocket.Upgrader{}
 
 func validateMessage(data []byte) (msg updateMessege, err error) {
 	if err = json.Unmarshal(data, &msg); err != nil {
@@ -39,6 +39,10 @@ func (this *WsController) WsHandle() {
 	if err != nil {
 		fmt.Println("Websocket error(connection): ", err)
 		return
+	}
+
+	if err = ws.WriteMessage(websocket.TextMessage, `{"Update": true, "History": null}`); err != nil {
+		return err
 	}
 
 	for {

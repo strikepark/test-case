@@ -83,18 +83,16 @@ func WsHandler(ws *websocket.Conn) {
 	io.Copy(ws, ws)
 }
 
-//type WsMessege struct {
-//	Msg string
-//	UpdateFlag bool
-//}
-//
-//func WsSend(ws []*websocket.Conn, data WsMessege) {
-//	for _, conn := range ws {
-//		if err := websocket.JSON.Send(conn, data); err != nil {
-//			fmt.Printf("%s", err)   //"use of closed network connection"
-//		}
-//	}
-//}
+type WsMessege struct {
+	Msg string
+	UpdateFlag bool
+}
+
+func WsSend(ws *websocket.Conn, data WsMessege) {
+	if err := websocket.JSON.Send(ws, data); err != nil {
+		fmt.Printf("%s", err) // "use of closed network connection"
+	}
+}
 
 
 
@@ -124,7 +122,9 @@ func (this *OrderController) UpdateOrder() {
 
 		fmt.Println("Exec webscocket func")
 
-		fmt.Println(wsList[10])
+		if wsList[result.Code] != nil {
+			WsSend(wsList[result.Code], WsMessege{"Update", true})
+		}
 
 		this.Data["json"] = result
 	}

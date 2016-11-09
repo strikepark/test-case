@@ -101,9 +101,7 @@ func (this *OrderController) UpdateOrder() {
 
 		fmt.Println("Exec webscocket func")
 
-		if _, err = io.WriteString(wsConn, "string"); err != nil {
-			fmt.Println(err)
-		}
+		go io.WriteString(wsConn, "string")
 
 		this.Data["json"] = result
 	}

@@ -77,7 +77,7 @@ func WsHandler(ws *websocket.Conn) {
 		fmt.Println(err)
 	}
 
-	fmt.Println(ws)
+	fmt.Println(ws.Config())
 
 	//wsList["id:" + ] = ws
 	io.Copy(ws, ws)

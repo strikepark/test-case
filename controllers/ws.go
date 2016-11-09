@@ -77,6 +77,7 @@ func (this *WsController) WsHandle() {
 }
 
 func WsSend(ws *websocket.Conn) error {
+	fmt.Println("Websocket start sending")
 	defer ws.Close()
 
 	for {

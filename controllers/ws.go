@@ -34,7 +34,9 @@ func validateMessage(data []byte) (msg updateMessege, err error) {
 	return msg, nil
 }
 
-func (this *WsController) WsHandle() {
+var ws *websocket.Conn
+
+func (this *WsController) WsHandle(ws *websocket.Conn) {
 	ws, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 	if err != nil {
 		fmt.Println("Websocket error(connection): ", err)

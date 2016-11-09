@@ -39,12 +39,6 @@
                 var apiUrl = 'wss://planadotest.herokuapp.com/ws';
                 var ws = new WebSocket(apiUrl);
 
-                ws.onopen = function() {
-                    console.log("Соединение установлено.");
-
-                    ws.send(JSON.stringify({Update: true, History: "text"}))
-                };
-
                 ws.onclose = function(event) {
                     if (event.wasClean) {
                         console.log('Соединение закрыто чисто');
@@ -63,6 +57,12 @@
                     var data = JSON.parse(event.data);
                     console.log(data);
                 }
+
+                ws.onopen = function() {
+                    console.log("Соединение установлено.");
+
+                    ws.send(JSON.stringify({Update: true, History: "text"}))
+                };
             }
 
             $(document).ready(function() {

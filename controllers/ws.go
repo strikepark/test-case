@@ -50,7 +50,12 @@ func (this *WsController) WsHandle() {
 				fmt.Println("Websocket error(reading messege): ", err)
 			}
 
-			break
+			// break
+		}
+
+		if err = ws.WriteMessage(messageType, data); err != nil {
+			fmt.Println("Websocket error(write messege): ", err)
+			return
 		}
 
 		switch messageType {
@@ -61,11 +66,6 @@ func (this *WsController) WsHandle() {
 					break
 				}
 				fmt.Println(msg)
-
-				if err = ws.WriteMessage(websocket.TextMessage, []byte(`{"Update": true, "History": null}`)); err != nil {
-					fmt.Println("Websocket error(write messege): ", err)
-					return
-				}
 			default:
 				fmt.Println("Websocket error: unknown messageType!")
 		}

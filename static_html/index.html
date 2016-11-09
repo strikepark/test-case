@@ -56,7 +56,7 @@
                 ws.onopen = function() {
                     console.log("Соединение установлено.");
 
-                    ws.send(JSON.stringify({Update: true, History: "text"}))
+                    ws.send(JSON.stringify({code: 18}))
                 };
 
                 ws.onmessege = function(event) {

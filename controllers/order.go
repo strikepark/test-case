@@ -68,18 +68,18 @@ func (this *OrderController) GetOrder() {
 	this.ServeJSON()
 }
 
-//var wsList = make(map[string] *websocket.Conn)
+type JSONCode struct {
+	Code int64 `json:"code"`
+}
+
+var wsList = make(map[int64] *websocket.Conn)
 
 func WsHandler(ws *websocket.Conn) {
-	msg := make([]byte, 512)
-	_, err := ws.Read(msg)
-	if err != nil {
-		fmt.Println(err)
-	}
+	var data JSONCode
+	websocket.JSON.Receive(ws, &data)
 
-	fmt.Println(ws.Config())
+	wsList[data.Code] = ws
 
-	//wsList["id:" + ] = ws
 	io.Copy(ws, ws)
 }
 
@@ -123,6 +123,10 @@ func (this *OrderController) UpdateOrder() {
 		}
 
 		fmt.Println("Exec webscocket func")
+
+		for key, value := range wsList {
+			fmt.Println("Key:", key, "Value:", value)
+		}
 
 		//wsMsg := WsMessege{Msg: "hello", UpdateFlag: true}
 		//

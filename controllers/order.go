@@ -68,25 +68,35 @@ func (this *OrderController) GetOrder() {
 	this.ServeJSON()
 }
 
-var wsList []*websocket.Conn
+//var wsList = make(map[string] *websocket.Conn)
 
 func WsHandler(ws *websocket.Conn) {
-	wsList = append(wsList, ws)
+	msg := make([]byte, 512)
+	_, err := ws.Read(msg)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(ws)
+
+	//wsList["id:" + ] = ws
 	io.Copy(ws, ws)
 }
 
-type WsMessege struct {
-	Msg string
-	UpdateFlag bool
-}
+//type WsMessege struct {
+//	Msg string
+//	UpdateFlag bool
+//}
+//
+//func WsSend(ws []*websocket.Conn, data WsMessege) {
+//	for _, conn := range ws {
+//		if err := websocket.JSON.Send(conn, data); err != nil {
+//			fmt.Printf("%s", err)   //"use of closed network connection"
+//		}
+//	}
+//}
 
-func WsSend(ws []*websocket.Conn, data WsMessege) {
-	for _, conn := range ws {
-		if err := websocket.JSON.Send(conn, data); err != nil {
-			fmt.Printf("%s", err)   //"use of closed network connection"
-		}
-	}
-}
+
 
 func (this *OrderController) UpdateOrder() {
 	id, _ := strconv.Atoi(this.Ctx.Input.Param(":id"))
@@ -114,9 +124,9 @@ func (this *OrderController) UpdateOrder() {
 
 		fmt.Println("Exec webscocket func")
 
-		wsMsg := WsMessege{Msg: "hello", UpdateFlag: true}
-
-		go WsSend(wsList, wsMsg)
+		//wsMsg := WsMessege{Msg: "hello", UpdateFlag: true}
+		//
+		//go WsSend(wsList, wsMsg)
 
 		this.Data["json"] = result
 	}

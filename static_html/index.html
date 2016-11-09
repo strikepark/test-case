@@ -41,6 +41,8 @@
 
                 ws.onopen = function() {
                     console.log("Соединение установлено.");
+
+                    ws.send(JSON.stringify({Update: true, History: "text"}))
                 };
 
                 ws.onclose = function(event) {

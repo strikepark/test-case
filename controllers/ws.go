@@ -9,6 +9,8 @@ import (
 	"encoding/json"
 	"github.com/pkg/errors"
 	//"io"
+	"io"
+	"log"
 )
 
 type WsController struct {
@@ -35,63 +37,47 @@ func validateMessage(data []byte) (msg updateMessege, err error) {
 }
 
 var ws *websocket.Conn
+var err error
 
 func (this *WsController) WsHandle() {
-	ws, _ = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
-	//if err != nil {
-	//	fmt.Println("Websocket error(connection): ", err)
-	//	return
-	//}
+	ws, err = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 
-	//for {
-	//	messageType, data, err := ws.ReadMessage()
-	//	if err != nil {
-	//		if err == io.EOF {
-	//			fmt.Println("Websocket error(closed): ", err)
-	//		} else {
-	//			fmt.Println("Websocket error(reading messege): ", err)
-	//		}
-	//
-	//		// break
-	//	}
-	//
-	//	if err = ws.WriteMessage(messageType, data); err != nil {
-	//		fmt.Println("Websocket error(write messege): ", err)
-	//		return
-	//	}
-	//
-	//	switch messageType {
-	//		case websocket.TextMessage:
-	//			msg, err := validateMessage(data)
-	//			if err != nil {
-	//				fmt.Println("Websocket error(validation messege): ", err, msg)
-	//				break
-	//			}
-	//			fmt.Println(msg)
-	//		default:
-	//			fmt.Println("Websocket error: unknown messageType!")
-	//	}
-	//}
-	//
-	//ws.WriteMessage(websocket.CloseMessage, []byte{})
-}
+	if err != nil {
+		log.Print("upgrade:", err)
+		return
+	}
 
-func WsSend(ws *websocket.Conn) error {
-	fmt.Println("Websocket start sending")
 	defer ws.Close()
 
 	for {
-		if err := ws.WriteMessage(websocket.TextMessage, []byte("Update")); err != nil {
-			fmt.Println("Websocket close(write messege error): ", err)
-			ws.Close()
+		mt, message, err := ws.ReadMessage()
+		if err != nil {
+			log.Println("read:", err)
 			break
-		} else {
-			fmt.Println("Websocket messege send")
 		}
-
-		ws.Close()
-		fmt.Println("Websocket close")
+		log.Printf("recv: %s", message)
+		err = ws.WriteMessage(mt, message)
+		if err != nil {
+			log.Println("write:", err)
+			break
+		}
 	}
-
-	return nil
 }
+//
+//func WsSend(ws *websocket.Conn) error {
+//	defer ws.Close()
+//
+//	for {
+//		if err := ws.WriteMessage(websocket.TextMessage, []byte("Update")); err != nil {
+//			fmt.Println("Websocket close(write messege error): ", err)
+//			ws.Close()
+//			break
+//		} else {
+//			fmt.Println("Websocket messege send")
+//		}
+//
+//		ws.Close()
+//	}
+//
+//	return nil
+//}

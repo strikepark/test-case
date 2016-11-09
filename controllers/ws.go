@@ -42,7 +42,8 @@ func (this *WsController) WsHandle() {
 	}
 
 	if err = ws.WriteMessage(websocket.TextMessage, []byte(`{"Update": true, "History": null}`)); err != nil {
-		return err
+		fmt.Println("Websocket error(write messege): ", err)
+		return
 	}
 
 	for {

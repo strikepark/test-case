@@ -124,13 +124,7 @@ func (this *OrderController) UpdateOrder() {
 
 		fmt.Println("Exec webscocket func")
 
-		for key, value := range wsList {
-			fmt.Println("Key:", key, "Value:", value)
-		}
-
-		//wsMsg := WsMessege{Msg: "hello", UpdateFlag: true}
-		//
-		//go WsSend(wsList, wsMsg)
+		fmt.Println(wsList[10])
 
 		this.Data["json"] = result
 	}

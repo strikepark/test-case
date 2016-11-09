@@ -4,7 +4,6 @@ import (
 	"github.com/astaxie/beego"
 
 
-	"fmt"
 	"github.com/gorilla/websocket"
 	"encoding/json"
 	"github.com/pkg/errors"

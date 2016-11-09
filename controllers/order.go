@@ -120,9 +120,8 @@ func (this *OrderController) UpdateOrder() {
 			fmt.Println(err)
 		}
 
-		fmt.Println("Exec webscocket func")
-
 		if wsList[result.Code] != nil {
+			fmt.Println("Exec webscocket func")
 			WsSend(wsList[result.Code], WsMessege{"Update", true})
 		}
 

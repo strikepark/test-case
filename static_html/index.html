@@ -58,7 +58,7 @@
 
                     console.log('Код: ' + e.code + ' причина: ' + e.reason);
                 });
-                
+
                 ws.addEventListener('messege', function(e) {
                     console.log(JSON.parse(e.data))
                 });

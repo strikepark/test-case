@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/websocket"
 	"encoding/json"
 	"github.com/pkg/errors"
-	"io"
+	//"io"
 )
 
 type WsController struct {
@@ -36,42 +36,61 @@ func validateMessage(data []byte) (msg updateMessege, err error) {
 
 var ws *websocket.Conn
 
-func (this *WsController) WsHandle(ws *websocket.Conn) {
-	ws, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
-	if err != nil {
-		fmt.Println("Websocket error(connection): ", err)
-		return
-	}
+func (this *WsController) WsHandle() {
+	ws, _ = upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
+	//if err != nil {
+	//	fmt.Println("Websocket error(connection): ", err)
+	//	return
+	//}
+
+	//for {
+	//	messageType, data, err := ws.ReadMessage()
+	//	if err != nil {
+	//		if err == io.EOF {
+	//			fmt.Println("Websocket error(closed): ", err)
+	//		} else {
+	//			fmt.Println("Websocket error(reading messege): ", err)
+	//		}
+	//
+	//		// break
+	//	}
+	//
+	//	if err = ws.WriteMessage(messageType, data); err != nil {
+	//		fmt.Println("Websocket error(write messege): ", err)
+	//		return
+	//	}
+	//
+	//	switch messageType {
+	//		case websocket.TextMessage:
+	//			msg, err := validateMessage(data)
+	//			if err != nil {
+	//				fmt.Println("Websocket error(validation messege): ", err, msg)
+	//				break
+	//			}
+	//			fmt.Println(msg)
+	//		default:
+	//			fmt.Println("Websocket error: unknown messageType!")
+	//	}
+	//}
+	//
+	//ws.WriteMessage(websocket.CloseMessage, []byte{})
+}
+
+func WsSend(ws *websocket.Conn) error {
+	defer ws.Close()
 
 	for {
-		messageType, data, err := ws.ReadMessage()
-		if err != nil {
-			if err == io.EOF {
-				fmt.Println("Websocket error(closed): ", err)
-			} else {
-				fmt.Println("Websocket error(reading messege): ", err)
-			}
-
-			// break
+		if err := ws.WriteMessage(websocket.TextMessage, []byte("Update")); err != nil {
+			fmt.Println("Websocket close(write messege error): ", err)
+			ws.Close()
+			break
+		} else {
+			fmt.Println("Websocket messege send")
 		}
 
-		if err = ws.WriteMessage(messageType, data); err != nil {
-			fmt.Println("Websocket error(write messege): ", err)
-			return
-		}
-
-		switch messageType {
-			case websocket.TextMessage:
-				msg, err := validateMessage(data)
-				if err != nil {
-					fmt.Println("Websocket error(validation messege): ", err, msg)
-					break
-				}
-				fmt.Println(msg)
-			default:
-				fmt.Println("Websocket error: unknown messageType!")
-		}
+		ws.Close()
+		fmt.Println("Websocket close")
 	}
 
-	ws.WriteMessage(websocket.CloseMessage, []byte{})
+	return nil
 }

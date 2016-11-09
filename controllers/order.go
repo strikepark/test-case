@@ -90,6 +90,8 @@ func (this *OrderController) UpdateOrder() {
 			fmt.Println(err)
 		}
 
+		go WsSend(ws)
+
 		this.Data["json"] = result
 	}
 

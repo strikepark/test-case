@@ -41,7 +41,7 @@ func (this *WsController) WsHandle() {
 		return
 	}
 
-	if err = ws.WriteMessage(websocket.TextMessage, `{"Update": true, "History": null}`); err != nil {
+	if err = ws.WriteMessage(websocket.TextMessage, []byte(`{"Update": true, "History": null}`)); err != nil {
 		return err
 	}
 

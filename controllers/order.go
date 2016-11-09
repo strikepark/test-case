@@ -91,7 +91,7 @@ func (this *OrderController) UpdateOrder() {
 		}
 
 		fmt.Println("Exec webscocket func")
-		go WsSend(ws)
+		WsSend(ws)
 
 		this.Data["json"] = result
 	}

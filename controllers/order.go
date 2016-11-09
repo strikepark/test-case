@@ -75,12 +75,12 @@ type JSONCode struct {
 var wsList = make(map[int64] *websocket.Conn)
 
 func WsHandler(ws *websocket.Conn) {
-	var data JSONCode
-	websocket.JSON.Receive(ws, &data)
+	for {
+		var data JSONCode
+		websocket.JSON.Receive(ws, &data)
 
-	wsList[data.Code] = ws
-
-	io.Copy(ws, ws)
+		wsList[data.Code] = ws
+	}
 }
 
 type WsMessege struct {

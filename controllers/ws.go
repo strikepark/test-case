@@ -76,22 +76,22 @@ func (this *WsController) WsHandle() {
 	//ws.WriteMessage(websocket.CloseMessage, []byte{})
 }
 
-func WsSend(ws *websocket.Conn) error {
-	fmt.Println("Websocket start sending")
-	defer ws.Close()
-
-	for {
-		if err := ws.WriteMessage(websocket.TextMessage, []byte("Update")); err != nil {
-			fmt.Println("Websocket close(write messege error): ", err)
-			ws.Close()
-			break
-		} else {
-			fmt.Println("Websocket messege send")
-		}
-
-		ws.Close()
-		fmt.Println("Websocket close")
-	}
-
-	return nil
-}
+//func WsSend(ws *websocket.Conn) error {
+//	fmt.Println("Websocket start sending")
+//	defer ws.Close()
+//
+//	for {
+//		if err := ws.WriteMessage(websocket.TextMessage, []byte("Update")); err != nil {
+//			fmt.Println("Websocket close(write messege error): ", err)
+//			ws.Close()
+//			break
+//		} else {
+//			fmt.Println("Websocket messege send")
+//		}
+//
+//		ws.Close()
+//		fmt.Println("Websocket close")
+//	}
+//
+//	return nil
+//}

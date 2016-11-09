@@ -68,11 +68,24 @@ func (this *OrderController) GetOrder() {
 	this.ServeJSON()
 }
 
-var wsConn *websocket.Conn
+var wsList []*websocket.Conn
 
 func WsHandler(ws *websocket.Conn) {
-	wsConn = ws
+	wsList = append(wsList, ws)
 	io.Copy(ws, ws)
+}
+
+type WsMessege struct {
+	Msg string
+	UpdateFlag bool
+}
+
+func WsSend(ws []*websocket.Conn, data WsMessege) {
+	for _, conn := range ws {
+		if err := websocket.JSON.Send(conn, data); err != nil {
+			fmt.Printf("%s", err)   //"use of closed network connection"
+		}
+	}
 }
 
 func (this *OrderController) UpdateOrder() {
@@ -101,7 +114,9 @@ func (this *OrderController) UpdateOrder() {
 
 		fmt.Println("Exec webscocket func")
 
-		go io.WriteString(wsConn, "string")
+		wsMsg := WsMessege{Msg: "hello", UpdateFlag: true}
+
+		go WsSend(wsList, wsMsg)
 
 		this.Data["json"] = result
 	}

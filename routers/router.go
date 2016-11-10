@@ -7,7 +7,8 @@ import (
 )
 
 func init() {
-	//beego.Router("/ws", &c.WsController{}, "get:WsHandle")
+	beego.SetStaticPath("/", "static_html")
+	
 	beego.Handler("/ws", websocket.Handler(c.WsHandler))
 
 	ns := beego.NewNamespace("/api",

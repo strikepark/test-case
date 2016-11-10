@@ -2,14 +2,13 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"golang.org/x/net/websocket"
 
 	m "planadotest/models"
 	"encoding/json"
 	"strconv"
 	"time"
 	"fmt"
-	"io"
+	//"io"
 )
 
 type OrderController struct {
@@ -68,34 +67,6 @@ func (this *OrderController) GetOrder() {
 	this.ServeJSON()
 }
 
-type JSONCode struct {
-	Code int64 `json:"code"`
-}
-
-var wsList = make(map[int64] *websocket.Conn)
-
-func WsHandler(ws *websocket.Conn) {
-	for {
-		var data JSONCode
-		websocket.JSON.Receive(ws, &data)
-
-		wsList[data.Code] = ws
-	}
-}
-
-type WsMessege struct {
-	Msg string
-	UpdateFlag bool
-}
-
-func WsSend(ws *websocket.Conn, data WsMessege) {
-	if err := websocket.JSON.Send(ws, data); err != nil {
-		fmt.Printf("%s", err) // "use of closed network connection"
-	}
-}
-
-
-
 func (this *OrderController) UpdateOrder() {
 	id, _ := strconv.Atoi(this.Ctx.Input.Param(":id"))
 	idStr := strconv.Itoa(id)
@@ -121,7 +92,6 @@ func (this *OrderController) UpdateOrder() {
 		}
 
 		if wsList[result.Code] != nil {
-			fmt.Println("Exec webscocket func")
 			WsSend(wsList[result.Code], WsMessege{"Update", true})
 		}
 

@@ -47,5 +47,9 @@ func main() {
 		beego.BConfig.Listen.HTTPPort = port
 	}
 
+	for _, path := range []string{"css", "js", "img"} {
+		beego.SetStaticPath("/" + path, "static/" + path)
+	}
+
 	beego.Run()
 }

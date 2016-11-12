@@ -43,23 +43,19 @@ export function updateOrder(order, id) {
         $.ajax({
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             },
             crossDomain: true,
             async: true,
             type: 'PUT',
             url: url,
-            data: order
+            data: JSON.stringify(order)
         }).done(function(data) {
-            console.log(data.statusText);
-
             dispatch({
                 type: UPDATE_ORDER_SUCCESS
             });
         })
         .fail(function(data) {
-            console.log(data.statusText);
-
             dispatch({
                 type: UPDATE_ORDER_FAIL,
                 error: data

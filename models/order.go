@@ -12,13 +12,13 @@ import (
 
 type Order struct {
 	Id int `json:"id"`
-	Code int64 `json:"code";valid:"Required";orm:"unique";`
-	SendAddress string `json:"sendAddress";valid:"Required";`
-	RecipientAddress string `json:"recipientAddress";valid:"Required";`
-	PhoneNumber int64 `json:"phoneNumber";valid:"Required";`
-	Status string `json:"status";valid:"Required";`
+	Code int64 `json:"code";valid:"Required",orm:"unique";`
+	SendAddress string `json:"sendAddress",valid:"Required";`
+	RecipientAddress string `json:"recipientAddress",valid:"Required";`
+	PhoneNumber int64 `json:"phoneNumber",valid:"Required";`
+	Status string `json:"status",valid:"Required";`
 
-	ChangeHistories string `json:"changeHistories";orm:"-"`
+	ChangeHistories string `orm:"-",json:"changeHistories"`
 }
 
 func init() {

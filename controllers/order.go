@@ -100,8 +100,11 @@ func (this *OrderController) UpdateOrder() {
 		this.Data["json"] = result
 	}
 
+    this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
     this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
-	this.ServeJSON()
+    this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "origin, x-csrftoken, content-type, accept")
+	this.Ctx.ResponseWriter.Header().Add("Access-Control-Max-Age", "1000")
+    this.ServeJSON()
 }
 
 func (this *OrderController) GetCostumerOrders() {

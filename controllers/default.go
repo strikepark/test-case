@@ -10,7 +10,7 @@ type MainController struct {
 }
 
 func (this *MainController) Get() {
-	content, err := ioutil.ReadFile("../static/index.html")
+	content, err := ioutil.ReadFile("/static/index.html")
 	if err != nil {
 		panic(err)
 	}

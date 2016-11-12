@@ -11,12 +11,12 @@ import (
 )
 
 type Order struct {
-	Id int
-	Code int64 `valid:"Required";orm:"unique"`
-	SendAddress string `valid:"Required"`
-	RecipientAddress string `valid:"Required"`
-	PhoneNumber int64 `valid:"Required"`
-	Status string `valid:"Required"`
+	Id int `json:"id"`
+	Code int64 `valid:"Required";orm:"unique";json:"code"`
+	SendAddress string `valid:"Required";json:"sendAddress"`
+	RecipientAddress string `valid:"Required";json:"recipientAddress"`
+	PhoneNumber int64 `valid:"Required";json:"phoneNumber"`
+	Status string `valid:"Required";json:"status"`
 
 	ChangeHistories string `orm:"-"`
 }

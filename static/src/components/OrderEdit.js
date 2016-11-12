@@ -6,7 +6,7 @@ import serialize from 'form-serialize'
 import $ from 'jquery'
 
 // import { connect } from 'react-redux';
-import { updateOrder } from '../actions/OrderActions'
+// import { updateOrder } from '../actions/OrderActions'
 
 export default class OrderEdit extends Component {
     constructor(props) {
@@ -65,7 +65,8 @@ export default class OrderEdit extends Component {
             code = fmtCode(order.code),
             formActive = this.state.active ? 'is-active' : '',
             buttonActive = this.state.disabled ? '' : 'is-active',
-            options = genStatusSelect();
+            options = genStatusSelect(),
+            disabled = this.state.disabled && order.status !== 'Доставлен';
 
         return (
             <form className={'form form_edit pure-form ' + formActive}>
@@ -85,19 +86,21 @@ export default class OrderEdit extends Component {
                     <input
                         onChange={this.onChange.bind(this)}
                         value={order.sendAddress}
-                        disabled={this.state.disabled}
+                        disabled={disabled}
 
                         name='SendAddress'
                         type='text'
                         className='pure-input-1-2'
                         placeholder='Адрес отправителя'
+                        maxlength='8'
+                        minlength='1'
                         required
                     />
 
                     <input
                         onChange={this.onChange.bind(this)}
                         value={this.state.order.recipientAddress}
-                        disabled={this.state.disabled}
+                        disabled={disabled}
 
                         name='RecipientAddress'
                         type='text'
@@ -109,12 +112,14 @@ export default class OrderEdit extends Component {
                     <input
                         onChange={this.onChange.bind(this)}
                         value={this.state.order.phoneNumber}
-                        disabled={this.state.disabled}
+                        disabled={disabled}
 
                         name='PhoneNumber'
                         type='number'
                         className='pure-input-1-2'
                         placeholder='Телефон получателя'
+                        maxlength='9'
+                        minlength='9'
                         required
                     />
                 </fieldset>

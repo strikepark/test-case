@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 
 import OrderItem from './OrderItem'
+import OrderNew from './OrderNew'
 
 export default class OrderList extends Component {
     render() {

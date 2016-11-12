@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as orderActions from '../actions/OrderActions'
 import OrderList from '../components/OrderList'
+import OrderNew from '../components/OrderNew'
 
 import $ from 'jquery';
 
@@ -11,7 +12,7 @@ class App extends Component {
     const orders = this.props.order.orderList;
     const fetching = this.props.order.fetching;
     const error = this.props.order.error;
-    const { updateOrder } = this.props.orderActions
+    const { updateOrder, createOrder } = this.props.orderActions
 
     if (fetching) {
         $('body').addClass('fetching');
@@ -24,7 +25,8 @@ class App extends Component {
     }
 
     return (
-        <div className='container'>
+        <div className='content'>
+            <OrderNew createOrder={createOrder} />
             <OrderList orders={orders} updateOrder={updateOrder} />
         </div>
     );

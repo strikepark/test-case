@@ -5,7 +5,11 @@ import {
 
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_SUCCESS,
-    UPDATE_ORDER_FAIL
+    UPDATE_ORDER_FAIL,
+
+    NEW_ORDER_REQUEST,
+    NEW_ORDER_SUCCESS,
+    NEW_ORDER_FAIL
 } from '../constants/Order'
 
 import $ from 'jquery'
@@ -52,12 +56,46 @@ export function updateOrder(order, id) {
             data: JSON.stringify(order)
         }).done(function(data) {
             dispatch({
-                type: UPDATE_ORDER_SUCCESS
+                type: UPDATE_ORDER_SUCCESS,
+                order: JSON.parse(data)
             });
         })
         .fail(function(data) {
             dispatch({
                 type: UPDATE_ORDER_FAIL,
+                error: data
+            });
+        });
+    }
+}
+
+export function createOrder(order) {
+    return (dispatch) => {
+        dispatch({
+            type: NEW_ORDER_REQUEST
+        })
+
+        let url = 'http://planadotest.herokuapp.com/api/orders/';
+
+        $.ajax({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            },
+            crossDomain: true,
+            async: true,
+            type: 'PUT',
+            url: url,
+            data: JSON.stringify(order)
+        }).done(function(data) {
+            dispatch({
+                type: NEW_ORDER_SUCCESS,
+                order: JSON.parse(data)
+            });
+        })
+        .fail(function(data) {
+            dispatch({
+                type: NEW_ORDER_FAIL,
                 error: data
             });
         });

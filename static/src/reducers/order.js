@@ -5,7 +5,11 @@ import {
 
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_SUCCESS,
-    UPDATE_ORDER_FAIL
+    UPDATE_ORDER_FAIL,
+
+    NEW_ORDER_REQUEST,
+    NEW_ORDER_SUCCESS,
+    NEW_ORDER_FAIL
 } from '../constants/Order'
 
 const initialState = {
@@ -44,12 +48,43 @@ export default function order(state = initialState, action) {
                 error: ''
             }
         case UPDATE_ORDER_SUCCESS:
+            // Обновление заказа в списке
+            let orderList = [...state.orderLists];
+            orderList.forEach((val, i) => {
+                if (val.Id === action.order.Id) {
+                    orderList.splice(i, 1, action.order);
+                }
+            });
+
             return {
                 ...state,
+                orderList: orderList,
                 fetching: false,
                 error: ''
             }
         case UPDATE_ORDER_FAIL:
+            return {
+                ...state,
+                fetching: false,
+                error: action.error
+            }
+
+
+        case NEW_ORDER_REQUEST:
+            return {
+                ...state,
+                fetching: true,
+                error: ''
+            }
+        case NEW_ORDER_SUCCESS:
+            return {
+                ...state,
+                orderList: [...orderList, action.order],
+                fetching: false,
+                error: ''
+            }
+
+        case NEW_ORDER_FAIL:
             return {
                 ...state,
                 fetching: false,

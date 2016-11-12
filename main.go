@@ -47,7 +47,7 @@ func main() {
 		beego.BConfig.Listen.HTTPPort = port
 	}
 
-	for _, path := range []string{"js/budle.js"} {
+	for _, path := range []string{"js/bundle.js"} {
 		beego.SetStaticPath("/" + path, "static/" + path)
 	}
 

@@ -39,6 +39,7 @@ func (this *OrderController) CreateOrder() {
 		this.Data["json"] = result
 	}
 
+    this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
 	this.ServeJSON()
 }
 
@@ -64,6 +65,7 @@ func (this *OrderController) GetOrder() {
 		this.Data["json"] = order
 	}
 
+    this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
 	this.ServeJSON()
 }
 
@@ -98,6 +100,7 @@ func (this *OrderController) UpdateOrder() {
 		this.Data["json"] = result
 	}
 
+    this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
 	this.ServeJSON()
 }
 
@@ -114,5 +117,6 @@ func (this *OrderController) GetCostumerOrders() {
 		this.Data["json"] = result
 	}
 
+    this.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
 	this.ServeJSON()
 }

@@ -92,8 +92,8 @@ export default class OrderEdit extends Component {
                         type='text'
                         className='pure-input-1-2'
                         placeholder='Адрес отправителя'
-                        maxlength='8'
-                        minlength='1'
+                        maxLength='8'
+                        minLength='1'
                         required
                     />
 
@@ -118,8 +118,8 @@ export default class OrderEdit extends Component {
                         type='number'
                         className='pure-input-1-2'
                         placeholder='Телефон получателя'
-                        maxlength='9'
-                        minlength='9'
+                        maxLength='9'
+                        minLength='9'
                         required
                     />
                 </fieldset>

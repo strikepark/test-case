@@ -13,8 +13,7 @@ export function genStatusSelect(selected) {
     let options = [];
 
     statusArr.map((status, index) => {
-        let s = (index === 0 && selected) ? 'selected' : '';
-        options.push(<option key={index} value={status} selected={s}>{status}</option>);
+        options.push(<option key={index} value={status}>{status}</option>);
     });
 
     return options;

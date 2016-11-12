@@ -36,72 +36,74 @@ export default class OrderNew extends Component {
 
     render() {
         let formActive = this.state.active ? 'is-active' : '',
-            options = genStatusSelect(true);
+            options = genStatusSelect();
 
         return (
-            <form className={'form form_edit pure-form ' + formActive}>
-                <button className='pure-button' type='button' onClick={this.showForm}>+ Добавить заказ</button>
+            <div>
+                <button className='pure-button' type='button' onClick={::this.showForm}>+ Добавить заказ</button>
+                <form className={'form form_edit pure-form ' + formActive}>
+                    <fieldset className='pure-group'>
+                        <input
+                            onChange={this.onChange}
+                            name='Code'
+                            type='number'
+                            className='pure-input-1-2'
+                            placeholder='Идентификатор заказа'
+                            maxLength='8'
+                            minLength='1'
+                            required
+                        />
 
-                <fieldset className='pure-group'>
-                    <input
-                        onChange={this.onChange.bind(this)}
-                        name='Code'
-                        type='number'
-                        className='pure-input-1-2'
-                        placeholder='Идентификатор заказа'
-                        maxlength='8'
-                        minlength='1'
-                        required
-                    />
+                        <input
+                            onChange={this.onChange}
 
-                    <input
-                        onChange={this.onChange.bind(this)}
+                            name='SendAddress'
+                            type='text'
+                            className='pure-input-1-2'
+                            placeholder='Адрес отправителя'
+                            required
+                        />
 
-                        name='SendAddress'
-                        type='text'
-                        className='pure-input-1-2'
-                        placeholder='Адрес отправителя'
-                        required
-                    />
+                        <input
+                            onChange={this.onChange}
 
-                    <input
-                        onChange={this.onChange.bind(this)}
+                            name='RecipientAddress'
+                            type='text'
+                            className='pure-input-1-2'
+                            placeholder='Адрес получателя'
+                            required
+                        />
 
-                        name='RecipientAddress'
-                        type='text'
-                        className='pure-input-1-2'
-                        placeholder='Адрес получателя'
-                        required
-                    />
+                        <input
+                            onChange={this.onChange}
 
-                    <input
-                        onChange={this.onChange.bind(this)}
+                            name='PhoneNumber'
+                            type='number'
+                            className='pure-input-1-2'
+                            placeholder='Телефон получателя'
+                            maxLength='9'
+                            minLength='9'
+                            required
+                        />
+                    </fieldset>
 
-                        name='PhoneNumber'
-                        type='number'
-                        className='pure-input-1-2'
-                        placeholder='Телефон получателя'
-                        maxlength='9'
-                        minlength='9'
-                        required
-                    />
-                </fieldset>
+                    <select
+                        onChange={this.onChange}
+                        name='Status'
+                        defaultValue='Готовится'
+                    >
+                        {options}
+                    </select>
 
-                <select
-                    onChange={this.onChange.bind(this)}
-                    name='Status'
-                >
-                    {options}
-                </select>
-
-                <button
-                    onClick={this.addOrder.bind(this)}
-                    className='form_btn pure-button pure-button-primary'
-                    type='button'
-                >
-                    Добавить
-                </button>
-            </form>
+                    <button
+                        onClick={::this.addOrder}
+                        className='form_btn pure-button pure-button-primary is-active'
+                        type='button'
+                    >
+                        Добавить
+                    </button>
+                </form>
+            </div>
         );
     }
 }

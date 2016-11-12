@@ -51,14 +51,14 @@ export function updateOrder(order, id) {
             url: url,
             data: order
         }).done(function(data) {
-            console.log(data);
+            console.log(data.statusText);
 
             dispatch({
                 type: UPDATE_ORDER_SUCCESS
             });
         })
         .fail(function(data) {
-            console.log(data);
+            console.log(data.statusText);
 
             dispatch({
                 type: UPDATE_ORDER_FAIL,

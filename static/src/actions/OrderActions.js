@@ -57,6 +57,8 @@ export function updateOrder(order, id) {
         }).done(function(data) {
             alert('Заказ обновлен!');
 
+            console.log(data);
+
             dispatch({
                 type: UPDATE_ORDER_SUCCESS,
                 order: JSON.parse(data)

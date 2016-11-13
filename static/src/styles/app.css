@@ -149,3 +149,30 @@ body {
 .content__back {
     margin: 10px 0 20px 0;
 }
+
+.history__hl {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.history__item {
+    margin-bottom: 10px;
+}
+
+.history__status_red {
+    color: #e74c3c;
+}
+
+.history__status_orange {
+    color: #f39c12;
+}
+
+.history__status_green {
+    color: #2ecc71;
+}
+
+.history__date {
+    font-style: italic;
+    color: #999;
+}

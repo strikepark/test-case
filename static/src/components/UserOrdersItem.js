@@ -31,14 +31,14 @@ export default class UserOrdersItem extends Component {
             let color = val.Status === 'Готовится' ? 'red' :
                         val.Status === 'Доставляется' ? 'orange' : 'green';
 
+            let arrow = (i === (historyObj.length - 1)) ? '↳ ' : '↓ ';
+
             let jsx = (
                 <div className='history__item' key={i}>
-                    <span className={'history__status history__status_' + color}>{val.Status}</span>
+                    <span className={'history__status history__status_' + color}>{arrow + val.Status} </span>
                     <span className='history__date'>{val.Date}</span>
                 </div>
             )
-
-            console.log(jsx)
 
             history.push(jsx)
         })

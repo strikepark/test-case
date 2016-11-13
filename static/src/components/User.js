@@ -7,8 +7,6 @@ export default class User extends Component {
         const { active, orders } = this.props
         const isActive = active ? '' : 'hidden'
 
-        console.log(orders)
-
         return (
             <div className={'content ' + isActive}>
                 <UserOrdersItem orders={orders} />

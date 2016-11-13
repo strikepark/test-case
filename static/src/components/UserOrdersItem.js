@@ -27,7 +27,7 @@ export default class UserOrdersItem extends Component {
 
         const historyObj = JSON.parse(order.ChangeHistories);
         const history = [];
-        for (let val in historyObj) {
+        historyObj.forEach((val) => {
             let color = val.Status === 'Готовится' ? 'red' :
                         val.Status === 'Доставляется' ? 'orange' : 'green';
 
@@ -39,7 +39,7 @@ export default class UserOrdersItem extends Component {
             )
 
             history.shift(jsx)
-        }
+        })
 
         console.log(history);
 

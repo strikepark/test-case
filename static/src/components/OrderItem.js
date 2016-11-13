@@ -17,7 +17,7 @@ export default class OrderItem extends Component {
 
             this.state.ws.send(JSON.stringify({
                 Code: this.props.order.Code
-            })
+            }))
         }
 
         this.state.ws.onclose = (event) => {

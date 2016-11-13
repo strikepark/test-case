@@ -60,7 +60,7 @@ export default function order(state = initialState, action) {
                 }
             });
 
-            cpnsole.log(orderList);
+            console.log(orderList);
 
             return {
                 ...state,

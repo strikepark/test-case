@@ -88,7 +88,7 @@ export function createOrder(order) {
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             },
             crossDomain: true,
-            async: true,UPDATE_ORDER_SUCCESS
+            async: true,
             type: 'PUT',
             url: url,
             data: JSON.stringify(order)

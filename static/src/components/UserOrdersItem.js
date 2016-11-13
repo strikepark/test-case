@@ -41,6 +41,8 @@ export default class UserOrdersItem extends Component {
             history.shift(jsx)
         }
 
+        console.log(history);
+
         return (
             <div className='list__item'>
                 <div className='list__name' onClick={::this.onOrderClick}>

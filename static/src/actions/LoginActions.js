@@ -21,7 +21,7 @@ export function getUserOrders(userInfo) {
 
         $.get(url)
             .done(function(data) {
-                console.log(data);
+                console.log(checkUser(parseInt(userInfo.Code), data));
 
                 if (!checkUser(parseInt(userInfo.Code), data)) {
                     alert('Покупателя с такими данными нет');

@@ -21,16 +21,10 @@ export function genStatusSelect(selected) {
 
 export function checkUser(code, data) {
     if (data === [] || data === null) {
-        console.log(1);
 
         return false
     } else {
-        console.log(2);
-
         data.forEach((val, i) => {
-            console.log(code);
-            console.log(val.code);
-
             if (code === val.code) {
                 return true
             }

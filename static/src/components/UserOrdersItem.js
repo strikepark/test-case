@@ -27,14 +27,14 @@ export default class UserOrdersItem extends Component {
 
         const historyObj = JSON.parse(order.ChangeHistories);
         const history = [];
-        for (val in history) {
+        for (val in historyObj) {
             let color = val.Status === 'Готовится' ? 'red' :
                         val.Status === 'Доставляется' ? 'orange' : 'green';
 
             let jsx = (
                 <div className='history__item'>
                     <span className={'history__status history__status_' + color}>{val.Status}</span>
-                    <span className='history__date'>val.Date</span>
+                    <span className='history__date'>{val.Date}</span>
                 </div>
             )
 

@@ -10,9 +10,9 @@ export default class OrderList extends Component {
 
         // Sort by id
         orders.sort((a, b) => {
-            if (a.value > b.value) {
+            if (a.value < b.value) {
                 return 1;
-            } else if (a.value < b.value) {
+            } else if (a.value > b.value) {
                 return -1;
             } else {
                 return 0;

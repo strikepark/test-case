@@ -80,7 +80,9 @@ export function createOrder(order) {
             type: NEW_ORDER_REQUEST
         })
 
-        let url = 'http://planadotest.herokuapp.com/api/orders/';
+        let url = 'http://planadotest.herokuapp.com/api/orders';
+
+        console.log(order);
 
         $.ajax({
             beforeSend: function(xhr) {

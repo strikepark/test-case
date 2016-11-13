@@ -30,7 +30,7 @@ export default class OrderNew extends Component {
         let form = $(e.target).closest('.form');
 
         if (form[0].checkValidity()) {
-            let order = serialize(form, {hash: true});
+            let order = serialize(form[0], {hash: true});
 
             order.Code = parseInt(order.Code);
             order.PhoneNumber = parseInt(order.PhoneNumber);

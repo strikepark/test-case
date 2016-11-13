@@ -23,7 +23,7 @@ export function getUserOrders(userInfo) {
             .done(function(data) {
                 console.log(data);
 
-                if (!checkUser(userInfo.Code, data)) {
+                if (!checkUser(parseInt(userInfo.Code), data)) {
                     alert('Покупателя с такими данными нет');
 
                     dispatch({

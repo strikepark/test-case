@@ -49,6 +49,7 @@ export default function order(state = initialState, action) {
             }
         case UPDATE_ORDER_SUCCESS:
             // Обновление заказа в списке
+            console.log(state.orderList);
             let orderList = state.orderList;
             orderList.forEach((val, i) => {
                 if (val.id === action.order.id) {
@@ -81,7 +82,7 @@ export default function order(state = initialState, action) {
         case NEW_ORDER_SUCCESS:
             return {
                 ...state,
-                orderList: [...orderList, action.order],
+                orderList: [action.order, ...orderList],
                 fetching: false,
                 error: ''
             }

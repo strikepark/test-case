@@ -82,8 +82,6 @@ export function createOrder(order) {
 
         let url = 'http://planadotest.herokuapp.com/api/orders';
 
-        console.log(order);
-
         $.ajax({
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Access-Control-Allow-Origin', '*');

@@ -31,11 +31,11 @@ export default class OrderItem extends Component {
         }
 
         this.state.ws.onmessage = function(event) {
-            console.log("Получены данные " + event.data);
+            console.log('Получены данные ' + event.data);
         }
 
         this.state.ws.onerror = function(error) {
-            console.log("Ошибка " + error.message);
+            console.log('Ошибка ' + error.message);
         }
     }
 

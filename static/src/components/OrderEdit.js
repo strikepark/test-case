@@ -66,80 +66,112 @@ export default class OrderEdit extends Component {
             formActive = this.state.active ? 'is-active' : '',
             buttonActive = this.state.disabled ? '' : 'is-active',
             options = genStatusSelect(),
-            disabled = this.state.disabled && order.status !== 'Доставлен';
+            readOnly = this.state.disabled,
+            editable = order.status === 'Доставлен' ? 'hidden' : '';
 
         return (
-            <form className={'form form_edit pure-form ' + formActive}>
-                <button className='pure-button' type='button' onClick={::this.onEditClick}>Редкатировать</button>
+            <form className={'form form_edit pure-form pure-form-aligned ' + formActive}>
+                <fieldset>
+                    <div className='pure-controls'>
+                        <button
+                            className={'button-xsmall button-secondary pure-button ' + editable}
+                            type='button'
+                            onClick={::this.onEditClick}>
+                            Редкатировать
+                        </button>
+                    </div>
 
-                <fieldset className='pure-group'>
-                    <input
-                        value={code}
+                    <div className='pure-control-group'>
+                        <label htmlFor='Code' title='Уникальный код от 1 до 99999999'>
+                            Код заказа (?)
+                        </label>
 
-                        type='number'
-                        className='pure-input-1-2'
-                        placeholder='Идентификатор заказа'
-                        required
-                        disabled
-                    />
+                        <input
+                            value={code}
 
-                    <input
-                        onChange={this.onChange.bind(this)}
-                        value={order.sendAddress}
-                        disabled={disabled}
+                            type='number'
+                            className='pure-input-1-2'
+                            placeholder='Идентификатор заказа'
+                            required
+                            readOnly
+                        />
+                    </div>
 
-                        name='SendAddress'
-                        type='text'
-                        className='pure-input-1-2'
-                        placeholder='Адрес отправителя'
-                        maxLength='8'
-                        minLength='1'
-                        required
-                    />
+                    <div className='pure-control-group'>
+                        <label htmlFor='SendAddress'>Адрес отправителя</label>
+                        <input
+                            onChange={this.onChange.bind(this)}
+                            value={order.sendAddress}
+                            readOnly={readOnly}
 
-                    <input
-                        onChange={this.onChange.bind(this)}
-                        value={this.state.order.recipientAddress}
-                        disabled={disabled}
+                            name='SendAddress'
+                            type='text'
+                            className='pure-input-1-2'
+                            placeholder='Адрес отправителя'
+                            required
+                        />
+                    </div>
 
-                        name='RecipientAddress'
-                        type='text'
-                        className='pure-input-1-2'
-                        placeholder='Адрес получателя'
-                        required
-                    />
+                    <div className='pure-control-group'>
+                        <label htmlFor='RecipientAddress'>Адрес получателя</label>
+                        <input
+                            onChange={this.onChange.bind(this)}
+                            value={this.state.order.recipientAddress}
+                            readOnly={readOnly}
 
-                    <input
-                        onChange={this.onChange.bind(this)}
-                        value={this.state.order.phoneNumber}
-                        disabled={disabled}
+                            name='RecipientAddress'
+                            type='text'
+                            className='pure-input-1-2'
+                            placeholder='Адрес получателя'
+                            required
+                        />
+                    </div>
 
-                        name='PhoneNumber'
-                        type='number'
-                        className='pure-input-1-2'
-                        placeholder='Телефон получателя'
-                        maxLength='9'
-                        minLength='9'
-                        required
-                    />
+                    <div className='pure-control-group'>
+                        <label htmlFor='PhoneNumber' title='Номер состоит из 11 цифр, например 89203002023'>
+                            Телефон (?)
+                        </label>
+                        <input
+                            onChange={this.onChange.bind(this)}
+                            value={this.state.order.phoneNumber}
+                            readOnly={readOnly}
+
+                            name='PhoneNumber'
+                            type='number'
+                            className='pure-input-1-2'
+                            placeholder='Телефон получателя'
+                            max='9'
+                            min='9'
+                            required
+                        />
+                    </div>
+
+                    <div className='pure-control-group'>
+                        <label htmlFor='Status'>
+                            Статус
+                        </label>
+
+                        <select
+                            onChange={this.onChange.bind(this)}
+                            value={this.state.order.status}
+                            readOnly={readOnly}
+                            disabled={readOnly}
+                            name='Status'
+                        >
+                            {options}
+                        </select>
+                    </div>
+
+                    <div className='pure-controls'>
+                        <button
+                            onClick={this.onSaveClick.bind(this)}
+                            className={'form_btn pure-button pure-button-primary ' + buttonActive}
+                            type='button'
+                        >
+                            Сохранить
+                        </button>
+                    </div>
                 </fieldset>
-
-                <select
-                    onChange={this.onChange.bind(this)}
-                    value={this.state.order.status}
-                    disabled={this.state.disabled}
-                    name='Status'
-                >
-                    {options}
-                </select>
-
-                <button
-                    onClick={this.onSaveClick.bind(this)}
-                    className={'form_btn pure-button pure-button-primary ' + buttonActive}
-                    type='button'
-                >
-                    Сохранить
-                </button>
             </form>
         );
     }

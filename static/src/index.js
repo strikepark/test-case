@@ -5,6 +5,7 @@ import App from './containers/App'
 import './styles/app.css'
 import configureStore from './store/configureStore'
 
+
 const store = configureStore()
 
 render(

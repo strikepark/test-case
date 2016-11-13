@@ -2,55 +2,47 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as orderActions from '../actions/OrderActions'
+import * as loginActions from '../actions/LoginActions'
 import Manage from '../components/Manage'
 import Login from '../components/Login'
+import User from '../components/User'
 import $ from 'jquery';
 
-import { Router, Route, browserHistory } from 'react-router'
-
-
 class App extends Component {
-    constructor(props) {
-        super(props)
-
-        const orders = this.props.order.orderList;
-        const { updateOrder, createOrder } = this.props.orderActions;
-
-        this.state = {
-            routes: (
-                <Router>
-                    <Route path='/' component={Login} />
-                    <Route path='/manage' component={Manage} createOrder={createOrder} orders={orders} updateOrder={updateOrder} />
-                </Router>
-            )
-        };
-    }
     render() {
-        const fetching = this.props.order.fetching;
+        const { fetching, orderList } = this.props.order
+        const { updateOrder, createOrder } = this.props.orderActions
 
-        if (fetching) {
-            $('body').addClass('fetching');
+        const { loginFetching, isManage, isLogin, isUser } = this.props.login
+        const { showManage, getUserOrders, showLogin } = this.props.loginActions
+
+        if (fetching || loginFetching) {
+            $('body').addClass('fetching')
         } else {
-            $('body').removeClass('fetching');
+            $('body').removeClass('fetching')
         }
 
         return (
-            <Router history={browserHistory}>
-                {this.state.routes}
-            </Router>
+            <div>
+                <Manage active={isManage} showLogin={showLogin} createOrder={createOrder} orders={orderList} updateOrder={updateOrder} />
+                <Login showManage={showManage} getUserOrders={getUserOrders} active={isLogin} />
+                <User active={isUser} />
+            </div>
         );
     }
 }
 
 function mapStateToProps(state) {
     return {
-        order: state.order
+        order: state.order,
+        login: state.login
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        orderActions: bindActionCreators(orderActions, dispatch)
+        orderActions: bindActionCreators(orderActions, dispatch),
+        loginActions: bindActionCreators(loginActions, dispatch)
     }
 }
 

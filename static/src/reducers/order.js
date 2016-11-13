@@ -14,7 +14,7 @@ import {
 
 const initialState = {
     orderList: [],
-    fetching: false,
+    fetching: true,
     error: ''
 }
 

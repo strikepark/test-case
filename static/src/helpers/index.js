@@ -18,3 +18,17 @@ export function genStatusSelect(selected) {
 
     return options;
 }
+
+export function checkUser(code, data) {
+    if (data === [] || data === null) {
+        return false
+    } else {
+        data.forEach((val) => {
+            if (code === val.code) {
+                return true
+            }
+        })
+
+        return false
+    }
+}

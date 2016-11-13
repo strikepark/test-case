@@ -1,15 +1,40 @@
 import React, { Component } from 'react'
 
-import { Link } from 'react-router';
+import serialize from 'form-serialize'
+import $ from 'jquery'
 
 export default class Login extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    showManage() {
+        this.props.showManage()
+    }
+
+    authHandle(e) {
+        let form = $(e.target).closest('.form')
+
+        if (form[0].checkValidity()) {
+            let user = serialize(form[0], {hash: true})
+
+            this.props.getUserOrders(user)
+        } else {
+            alert('Ошибки в полях формы')
+        }
+    }
+
     render() {
+        const { active } = this.props
+        const isActive = active ? '' : 'hidden'
+
         return (
-            <div className='login'>
+            <div className={'login ' + isActive}>
                 <h1>Аутентификация</h1>
-                <form  className='pure-form'>
+                <form className='form pure-form'>
                     <fieldset className='pure-group'>
                         <input
+                            name='Code'
                             type='number'
                             className='pure-input-1'
                             placeholder='Идентификатор заказа'
@@ -29,6 +54,7 @@ export default class Login extends Component {
                         />
 
                         <button
+                            onClick={::this.authHandle}
                             type='button'
                             className='pure-button pure-input-1 pure-button-primary'
                         >
@@ -37,7 +63,7 @@ export default class Login extends Component {
                     </fieldset>
                 </form>
 
-                <Link to='/manage' className='login__manage'>Операторский интерфейса →</Link>
+                <button onClick={::this.showManage} type='button' className='pure-button'>Операторский интерфейса →</button>
             </div>
         );
     }

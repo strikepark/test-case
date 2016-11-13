@@ -1,12 +1,8 @@
-import { findDOMNode } from 'react-dom'
 import React, { PropTypes, Component } from 'react'
+import { findDOMNode } from 'react-dom'
 import { fmtCode, genStatusSelect } from '../helpers'
-
 import serialize from 'form-serialize'
 import $ from 'jquery'
-
-// import { connect } from 'react-redux';
-// import { updateOrder } from '../actions/OrderActions'
 
 export default class OrderEdit extends Component {
     constructor(props) {

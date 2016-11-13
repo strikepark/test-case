@@ -29,7 +29,7 @@ export function getUserOrders(userInfo) {
                         error: 'Покупателя с такими данными нет'
                     });
                 } else {
-                    alert('Вы авторизованы');
+                    alert('Вы опознаны');
 
                     dispatch({
                         type: GET_USER_ORDERS_SUCCESS,

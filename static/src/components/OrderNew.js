@@ -61,7 +61,7 @@ export default class OrderNew extends Component {
                                 className='pure-input-1-2'
                                 placeholder='Идентификатор заказа'
                                 max='99999999'
-                                min='1'
+                                min='0'
                                 required
                             />
                         </div>

@@ -19,6 +19,8 @@ export function getUserOrders(userInfo) {
 
         let url = 'http://planadotest.herokuapp.com/api/orders/costumer/' + userInfo.phoneNumber;
 
+        console.log(userInfo);
+
         $.ajax({
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Access-Control-Allow-Origin', '*');

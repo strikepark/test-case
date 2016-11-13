@@ -10,31 +10,33 @@ export default class UserOrdersItem extends Component {
             ws: new WebSocket('ws://planadotest.herokuapp.com/ws')
         };
 
-        this.state.ws.onopen = () => {
+        this.state.ws.onopen = function() {
             console.log('Соединение установлено')
 
             this.state.ws.send(JSON.stringify({
                 Code: this.props.order.Code
             }))
+
+            console.log(this.props.order.Code)
         }
 
-        this.state.ws.onclose = (event) => {
-            if (event.wasClean) {
-                console.log('Соединение закрыто чисто');
-            } else {
-                console.log('Обрыв соединения');
-            }
+        // this.state.ws.onclose = function(event) {
+        //     if (event.wasClean) {
+        //         console.log('Соединение закрыто чисто');
+        //     } else {
+        //         console.log('Обрыв соединения');
+        //     }
 
-            console.log('Код: ' + event.code + ' причина: ' + event.reason);
-        }
+        //     console.log('Код: ' + event.code + ' причина: ' + event.reason);
+        // }
 
         this.state.ws.onmessage = function(event) {
-            console.log('Получены данные ' + event.data);
+            console.log(event.data);
         }
 
-        this.state.ws.onerror = function(error) {
-            console.log('Ошибка ' + error.message);
-        }
+        // this.state.ws.onerror = function(error) {
+        //     console.log('Ошибка ' + error.message);
+        // }
     }
 
     componentWillUnmount() {

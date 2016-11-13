@@ -19,7 +19,7 @@ export function getUserOrders(userInfo) {
 
         let url = 'http://planadotest.herokuapp.com/api/orders/costumer/' + userInfo.phoneNumber;
 
-        .get(url)
+        $.get(url)
             .done(function(data) {
                 if (!checkUser(userInfo.Code, data)) {
                     alert('Покупателя с такими данными нет');

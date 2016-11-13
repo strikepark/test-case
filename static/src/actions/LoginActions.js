@@ -17,7 +17,7 @@ export function getUserOrders(userInfo) {
             type: GET_USER_ORDERS_REQUEST
         })
 
-        let url = 'http://planadotest.herokuapp.com/api/orders/' + userInfo.phoneNumber;
+        let url = 'http://planadotest.herokuapp.com/api/orders/costumer/' + userInfo.phoneNumber;
 
         $.ajax({
             beforeSend: function(xhr) {

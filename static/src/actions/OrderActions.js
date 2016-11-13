@@ -88,14 +88,12 @@ export function createOrder(order) {
             url: url,
             data: JSON.stringify(order)
         }).done(function(data) {
-            console.log(data);
             dispatch({
                 type: NEW_ORDER_SUCCESS,
                 order: JSON.parse(data)
             });
         })
         .fail(function(data) {
-            console.log(data);
             dispatch({
                 type: NEW_ORDER_FAIL,
                 error: data

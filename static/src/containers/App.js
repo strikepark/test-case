@@ -4,35 +4,42 @@ import { connect } from 'react-redux'
 import * as orderActions from '../actions/OrderActions'
 import Manage from '../components/Manage'
 import Login from '../components/Login'
-import NotFound from '../components/NotFound'
 import $ from 'jquery';
 
 import { Router, Route, browserHistory } from 'react-router'
 
 
 class App extends Component {
-  render() {
-    const orders = this.props.order.orderList;
-    const fetching = this.props.order.fetching;
-    const error = this.props.order.error;
-    const { updateOrder, createOrder } = this.props.orderActions
+    constructor(props) {
+        super(props)
 
-    if (fetching) {
-        $('body').addClass('fetching');
-    } else {
-        $('body').removeClass('fetching');
+        const orders = this.props.order.orderList;
+        const { updateOrder, createOrder } = this.props.orderActions;
+
+        this.state = {
+            routes: (
+                <Router>
+                    <Route path='/' component={Login} />
+                    <Route path='/manage' component={Manage} createOrder={createOrder} orders={orders} updateOrder={updateOrder} />
+                </Router>
+            )
+        };
     }
+    render() {
+        const fetching = this.props.order.fetching;
 
-    return (
-        <Router history={browserHistory}>
-            <Route path='/' component={Login}>
-                <Route path='manage' component={Manage} createOrder={createOrder} orders={orders} updateOrder={updateOrder} />
-            </Route>
+        if (fetching) {
+            $('body').addClass('fetching');
+        } else {
+            $('body').removeClass('fetching');
+        }
 
-            <Route path='*' component={NotFound} />
-        </Router>
-    );
-  }
+        return (
+            <Router history={browserHistory}>
+                {this.state.routes}
+            </Router>
+        );
+    }
 }
 
 function mapStateToProps(state) {

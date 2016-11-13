@@ -20,6 +20,7 @@ func (this *MainController) Get() {
 	this.RenderBytes()
 }
 
+// TODO: убрать дублирование
 func (this *MainController) Error404() {
     content, err := ioutil.ReadFile("static/index.html")
     if err != nil {

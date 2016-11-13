@@ -24,8 +24,13 @@ export default class UserOrdersItem extends Component {
         }
 
         websocket.onmessage = (evt) => {
+            let curHistory = this.state.changeHistories
+            let newHistory = JSON.parse(evt.data.History)
+
+            curHistory.push(newHistory)
+
             this.setState({
-                changeHistories: [...this.state.changeHistories, JSON.parse(evt.data.History)]
+                changeHistories: curHistory
             })
         }
 

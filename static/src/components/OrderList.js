@@ -10,14 +10,16 @@ export default class OrderList extends Component {
 
         // Sort by id
         orders.sort((a, b) => {
-            if (a.value < b.value) {
+            if (a.id < b.id) {
                 return 1;
-            } else if (a.value > b.value) {
+            } else if (a.id > b.id) {
                 return -1;
             } else {
                 return 0;
             }
         });
+
+        console.log(orders);
 
         const listItems = orders.map((order) =>
             <OrderItem order={order} key={order.id} updateOrder={updateOrder} />

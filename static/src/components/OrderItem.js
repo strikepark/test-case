@@ -8,39 +8,8 @@ export default class OrderItem extends Component {
         super(props);
 
         this.state = {
-            active: false,
-            ws: new WebSocket('ws://planadotest.herokuapp.com/ws')
+            active: false
         };
-
-        this.state.ws.onopen = () => {
-            console.log('Соединение установлено')
-
-            this.state.ws.send(JSON.stringify({
-                Code: this.props.order.Code
-            }))
-        }
-
-        this.state.ws.onclose = (event) => {
-            if (event.wasClean) {
-                console.log('Соединение закрыто чисто');
-            } else {
-                console.log('Обрыв соединения');
-            }
-
-            console.log('Код: ' + event.code + ' причина: ' + event.reason);
-        }
-
-        this.state.ws.onmessage = function(event) {
-            console.log('Получены данные ' + event.data);
-        }
-
-        this.state.ws.onerror = function(error) {
-            console.log('Ошибка ' + error.message);
-        }
-    }
-
-    componentWillUnmount() {
-        this.state.ws.close()
     }
 
     onOrderClick() {

@@ -25,7 +25,21 @@ export default class UserOrdersItem extends Component {
         const color = status === 'Готовится' ? 'red' :
             status === 'Доставляется' ? 'orange' : 'green';
 
-        const history = order.ChangeHistories;
+        const historyObj = JSON.parse(order.ChangeHistories);
+        const history = [];
+        for (val in history) {
+            let color = val.Status === 'Готовится' ? 'red' :
+                        val.Status === 'Доставляется' ? 'orange' : 'green';
+
+            let jsx = (
+                <div className='history__item'>
+                    <span className={'history__status history__status_' + color}>{val.Status}</span>
+                    <span className='history__date'>val.Date</span>
+                </div>
+            )
+
+            history.shift(jsx)
+        }
 
         return (
             <div className='list__item'>
@@ -42,7 +56,8 @@ export default class UserOrdersItem extends Component {
                     <p><b>Адрес отправителя:</b> {order.sendAddress}</p>
 
                     <div className='history'>
-                        <b>История заказа:</b> {history}
+                        <h3 className='history__hl'>История заказа:</h3>
+                        {history}
                     </div>
                 </div>
             </div>

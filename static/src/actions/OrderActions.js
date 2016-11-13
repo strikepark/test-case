@@ -88,12 +88,13 @@ export function createOrder(order) {
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             },
             crossDomain: true,
-            async: true,
+            async: true,UPDATE_ORDER_SUCCESS
             type: 'PUT',
             url: url,
             data: JSON.stringify(order)
         }).done(function(data) {
             alert('Заказ обновлен!');
+            console.log(data);
 
             dispatch({
                 type: NEW_ORDER_SUCCESS,

@@ -22,7 +22,7 @@ export function getUserOrders(userInfo) {
         $.get(url)
             .done(function(data) {
                 if (!checkUser(userInfo.Code, data)) {
-                    alert('Покупателя с такими данными нет');
+                    alert('2 Покупателя с такими данными нет');
                     console.log(data);
 
                     dispatch({
@@ -39,7 +39,7 @@ export function getUserOrders(userInfo) {
                 }
             })
             .fail(function(data) {
-                alert('Покупателя с такими данными нет');
+                alert('1 Покупателя с такими данными нет');
                 console.log(data);
 
                 dispatch({

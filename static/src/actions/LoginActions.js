@@ -17,7 +17,7 @@ export function getUserOrders(userInfo) {
             type: GET_USER_ORDERS_REQUEST
         })
 
-        let url = 'http://planadotest.herokuapp.com/api/orders/costumer/' + userInfo.phoneNumber;
+        let url = 'http://planadotest.herokuapp.com/api/orders/costumer/' + userInfo.PhoneNumber;
 
         $.get(url)
             .done(function(data) {
@@ -25,7 +25,6 @@ export function getUserOrders(userInfo) {
 
                 if (!checkUser(userInfo.Code, data)) {
                     alert('Покупателя с такими данными нет');
-                    console.log(data);
 
                     dispatch({
                         type: GET_USER_ORDERS_FAIL,

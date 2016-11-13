@@ -21,8 +21,6 @@ export function getUserOrders(userInfo) {
 
         $.get(url)
             .done(function(data) {
-                console.log(checkUser(parseInt(userInfo.Code), data));
-
                 if (!checkUser(parseInt(userInfo.Code), data)) {
                     alert('Покупателя с такими данными нет');
 
@@ -31,6 +29,8 @@ export function getUserOrders(userInfo) {
                         error: 'Покупателя с такими данными нет'
                     });
                 } else {
+                    alert('Вы авторизованы');
+
                     dispatch({
                         type: GET_USER_ORDERS_SUCCESS,
                         phoneNumber: userInfo.PhoneNumber,

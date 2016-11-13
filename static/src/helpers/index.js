@@ -24,12 +24,13 @@ export function checkUser(code, data) {
 
         return false
     } else {
+        let flag = false
         data.forEach((val, i) => {
             if (code === val.code) {
-                return true
+                flag = true
             }
         })
 
-        return false
+        return flag
     }
 }

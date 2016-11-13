@@ -8,7 +8,7 @@ export default class UserOrdersItem extends Component {
         this.state = {
             ws: new WebSocket('ws://planadotest.herokuapp.com/ws'),
             active: false,
-            changeHistories: this.props.order.ChangeHistories,
+            changeHistories: JSON.parse(this.props.order.ChangeHistories),
             curStatus: this.props.order.status
         };
     }
@@ -69,7 +69,7 @@ export default class UserOrdersItem extends Component {
         const color = status === 'Готовится' ? 'red' :
             status === 'Доставляется' ? 'orange' : 'green'
 
-        const historyObj = JSON.parse(this.state.changeHistories);
+        const historyObj = this.state.changeHistories;
         const history = [];
         historyObj.forEach((val, i) => {
             let color = val.Status === 'Готовится' ? 'red' :

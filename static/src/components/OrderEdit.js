@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react'
 import { findDOMNode } from 'react-dom'
+import React, { PropTypes, Component } from 'react'
 import { fmtCode, genStatusSelect } from '../helpers'
 import serialize from 'form-serialize'
 import $ from 'jquery'
@@ -47,17 +47,17 @@ export default class OrderEdit extends Component {
     }
 
     onSaveClick(e) {
-        let form = $(e.target).closest('.form');
+        let form = $(e.target).closest('.form')
 
         if (form[0].checkValidity()) {
-            let order = serialize(form[0], {hash: true});
+            let order = serialize(form[0], {hash: true})
 
-            order.Code = this.state.order.code;
-            order.PhoneNumber = parseInt(order.PhoneNumber);
+            order.Code = this.state.order.code
+            order.PhoneNumber = parseInt(order.PhoneNumber)
 
-            this.props.updateOrder(order, this.state.order.id);
+            this.props.updateOrder(order, this.state.order.id)
         } else {
-            alert('Ошибки в полях формы');
+            alert('Ошибки в полях формы')
         }
     }
 

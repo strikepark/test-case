@@ -57,7 +57,8 @@ export default function login(state = initialState, action) {
             return {
                 ...state,
                 isLogin: true,
-                isManage: false
+                isManage: false,
+                isUser: false
             }
 
         default:

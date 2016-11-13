@@ -24,7 +24,7 @@ class App extends Component {
 
         const comp = isLogin ? (<Login showManage={showManage} getUserOrders={getUserOrders} active={isLogin} />) :
                      isManage ? (<Manage active={isManage} showLogin={showLogin} createOrder={createOrder} orders={orderList} updateOrder={updateOrder} />) :
-                     isUser ? (<User orders={user.userOrderList} active={isUser} />) :
+                     isUser ? (<User orders={user.userOrderList} showLogin={showLogin} active={isUser} />) :
                      '';
 
         return (

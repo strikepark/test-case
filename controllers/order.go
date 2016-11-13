@@ -95,6 +95,7 @@ func (this *OrderController) UpdateOrder() {
 		}
 
 		if wsList[result.Code] != nil {
+            fmt.Println("Совпадение найдено: ", result.Code)
 			WsSend(wsList[result.Code], WsMessege{"Update", true, string(historyJSON)})
 		}
 

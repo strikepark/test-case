@@ -15,7 +15,7 @@ export default class User extends Component {
             <div className={'content ' + isActive}>
                 <button onClick={::this.showLogin} type='button' className='button-xsmall pure-button content__back'>← Вернуться</button>
 
-                <UserOrdersItem orders={orders} />
+                <UserOrdersItem defaultCode={this.props.defaultCode} orders={orders} />
             </div>
         )
     }

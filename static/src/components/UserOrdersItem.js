@@ -7,7 +7,7 @@ export default class UserOrdersItem extends Component {
 
         this.state = {
             ws: new WebSocket('ws://planadotest.herokuapp.com/ws'),
-            active: false,
+            active: this.props.order.code === this.props.defaultCode,
             changeHistories: JSON.parse(this.props.order.ChangeHistories),
             curStatus: this.props.order.status
         };

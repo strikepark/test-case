@@ -57,11 +57,9 @@ export function updateOrder(order, id) {
         }).done(function(data) {
             alert('Заказ обновлен!');
 
-            console.log(data);
-
             dispatch({
                 type: UPDATE_ORDER_SUCCESS,
-                order: JSON.parse(data)
+                order: data
             });
         })
         .fail(function(data) {
@@ -96,7 +94,7 @@ export function createOrder(order) {
         }).done(function(data) {
             dispatch({
                 type: NEW_ORDER_SUCCESS,
-                order: JSON.parse(data)
+                order: data
             });
         })
         .fail(function(data) {

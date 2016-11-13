@@ -7,7 +7,7 @@ var precss = require('precss');
 module.exports = {
   devtool: 'eval',
   entry: [
-    // 'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client',
     'babel-polyfill',
     './src/index'
   ],
@@ -18,8 +18,8 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
-    // new NpmInstallPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new NpmInstallPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
@@ -40,12 +40,12 @@ module.exports = {
     ],
     loaders: [
       {
-        loaders: ['babel-loader'],
+        loaders: ['react-hot', 'babel-loader'],
         include: [
           path.resolve(__dirname, 'src'),
         ],
         test: /\.js$/,
-        // plugins: ['transform-runtime'],
+        plugins: ['transform-runtime'],
       },
       {
         test:   /\.css$/,

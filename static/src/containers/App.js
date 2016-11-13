@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as orderActions from '../actions/OrderActions'
-import OrderList from '../components/OrderList'
-import OrderNew from '../components/OrderNew'
-
+import Manage from '../components/Manage'
+import Login from '../components/Login'
+import NotFound from '../components/NotFound'
 import $ from 'jquery';
+
+import { Router, Route, browserHistory } from 'react-router'
+
 
 class App extends Component {
   render() {
@@ -21,10 +24,13 @@ class App extends Component {
     }
 
     return (
-        <div className='content'>
-            <OrderNew createOrder={createOrder} />
-            <OrderList orders={orders} updateOrder={updateOrder} />
-        </div>
+        <Router history={browserHistory}>
+            <Route path='/' component={Login}>
+                <Route path='manage' component={Manage} createOrder={createOrder} orders={orders} updateOrder={updateOrder} />
+            </Route>
+
+            <Route path='*' component={NotFound} />
+        </Router>
     );
   }
 }

@@ -35,10 +35,20 @@ body {
             z-index: 100;
         }
 
+.login {
+    width: 320px;
+    margin: 10px auto 20px;
+    text-align: center;
+}
+
+.login__manage {
+    font-size: 12px;
+    color: #999;
+}
 
 .content {
     width: 480px;
-    margin: 0 auto;
+    margin: 10px auto 20px;
     padding: 10px;
     border: 1px solid #eee;
 }

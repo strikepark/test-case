@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 
 import OrderItem from './OrderItem'
-import OrderNew from './OrderNew'
 
 export default class OrderList extends Component {
     render() {
@@ -18,8 +17,6 @@ export default class OrderList extends Component {
                 return 0;
             }
         });
-
-        console.log(orders);
 
         const listItems = orders.map((order) =>
             <OrderItem order={order} key={order.id} updateOrder={updateOrder} />

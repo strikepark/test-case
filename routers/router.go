@@ -7,6 +7,7 @@ import (
 )
 
 func init() {
+    beego.ErrorController(&c.MainController{})
 	beego.Handler("/ws", websocket.Handler(c.WsHandler))
 
 	ns := beego.NewNamespace("/api",
@@ -20,5 +21,4 @@ func init() {
 	)
 
 	beego.AddNamespace(ns)
-    beego.Errorhandler("404", &c.MainController{})
 }

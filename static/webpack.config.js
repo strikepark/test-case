@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'js/'),
     filename: 'bundle.js',
-    publicPath: '/js/'
+    // publicPath: '/js/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),

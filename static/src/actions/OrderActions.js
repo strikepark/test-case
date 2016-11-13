@@ -55,12 +55,16 @@ export function updateOrder(order, id) {
             url: url,
             data: JSON.stringify(order)
         }).done(function(data) {
+            alert('Заказ обновлен!');
+
             dispatch({
                 type: UPDATE_ORDER_SUCCESS,
-                order: data
+                order: JSON.parse(data)
             });
         })
         .fail(function(data) {
+            alert('При обновлении заказа произошла ошибка: ' + data.statusText);
+
             dispatch({
                 type: UPDATE_ORDER_FAIL,
                 error: data
@@ -90,7 +94,7 @@ export function createOrder(order) {
         }).done(function(data) {
             dispatch({
                 type: NEW_ORDER_SUCCESS,
-                order: data
+                order: JSON.parse(data)
             });
         })
         .fail(function(data) {

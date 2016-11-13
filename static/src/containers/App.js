@@ -20,10 +20,6 @@ class App extends Component {
         $('body').removeClass('fetching');
     }
 
-    if (error !== '') {
-        alert(error);
-    }
-
     return (
         <div className='content'>
             <OrderNew createOrder={createOrder} />

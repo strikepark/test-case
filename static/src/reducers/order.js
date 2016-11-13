@@ -49,7 +49,11 @@ export default function order(state = initialState, action) {
             }
         case UPDATE_ORDER_SUCCESS:
             // Обновление заказа в списке
+            console.log()
             let orderList = [...state.orderLists];
+            console.log(state.orderLists);
+            console.log(orderList);
+            console.log(action.order);
             orderList.forEach((val, i) => {
                 if (val.Id === action.order.Id) {
                     orderList.splice(i, 1, action.order);

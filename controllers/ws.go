@@ -23,9 +23,12 @@ func WsHandler(ws *websocket.Conn) {
 type WsMessege struct {
 	Msg string
 	UpdateFlag bool
+    History string
 }
 
 func WsSend(ws *websocket.Conn, data WsMessege) {
+    fmt.Println()
+
 	if err := websocket.JSON.Send(ws, data); err != nil {
 		fmt.Printf("%s", err) // "use of closed network connection"
 	}

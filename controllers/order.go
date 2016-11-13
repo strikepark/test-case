@@ -86,7 +86,8 @@ func (this *OrderController) UpdateOrder() {
 	} else {
 		history := m.History{Code: result.Code, Status: result.Status, Date: time.Now()}
 
-		_, err = history.AddToHistory()
+		historyTmp, err := history.AddToHistory()
+        historyJSON, _ := json.Marshal(historyTmp)
 
 		if err != nil {
 			fmt.Println("Error add history")
@@ -94,7 +95,7 @@ func (this *OrderController) UpdateOrder() {
 		}
 
 		if wsList[result.Code] != nil {
-			WsSend(wsList[result.Code], WsMessege{"Update", true})
+			WsSend(wsList[result.Code], WsMessege{"Update", true, string(historyJSON)})
 		}
 
 		this.Data["json"] = result

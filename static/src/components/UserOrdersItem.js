@@ -7,7 +7,8 @@ export default class UserOrdersItem extends Component {
 
         this.state = {
             ws: new WebSocket('ws://planadotest.herokuapp.com/ws'),
-            active: false
+            active: false,
+            changeHistories: this.props.order.ChangeHistories
         };
     }
 
@@ -23,7 +24,15 @@ export default class UserOrdersItem extends Component {
         }
 
         websocket.onmessage = (evt) => {
-            console.log(JSON.parse(evt.data))
+            this.setState({
+                changeHistories: [...changeHistories, JSON.parse(evt.data.History)]
+            })
+        }
+
+        websocket.onclose = () => {
+            setTimeout(() => {
+                this.setupWebsocket();
+            }, 3600)
         }
     }
 
@@ -51,7 +60,7 @@ export default class UserOrdersItem extends Component {
         const color = status === 'Готовится' ? 'red' :
             status === 'Доставляется' ? 'orange' : 'green';
 
-        const historyObj = JSON.parse(order.ChangeHistories);
+        const historyObj = JSON.parse(this.state.changeHistories);
         const history = [];
         historyObj.forEach((val, i) => {
             let color = val.Status === 'Готовится' ? 'red' :

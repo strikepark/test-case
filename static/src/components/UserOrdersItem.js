@@ -17,7 +17,7 @@ export default class UserOrdersItem extends Component {
     }
 
     render() {
-        const order = this.prop.order
+        const order = this.props.order
         const active = this.state.active ? '' : 'hidden'
 
         const code = fmtCode(order.code);

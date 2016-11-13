@@ -51,13 +51,18 @@ export default class OrderEdit extends Component {
     }
 
     onSaveClick(e) {
-        let form = e.target.parentNode;
-        let order = serialize(form, {hash: true});
+        let form = $(e.target).closest('.form');
 
-        order.Code = this.state.order.code;
-        order.PhoneNumber = parseInt(order.PhoneNumber);
+        if (form[0].checkValidity()) {
+            let order = serialize(form[0], {hash: true});
 
-        this.props.updateOrder(order, this.state.order.id);
+            order.Code = this.state.order.code;
+            order.PhoneNumber = parseInt(order.PhoneNumber);
+
+            this.props.updateOrder(order, this.state.order.id);
+        } else {
+            alert('Ошибки в полях формы');
+        }
     }
 
     render() {
@@ -92,6 +97,8 @@ export default class OrderEdit extends Component {
                             type='number'
                             className='pure-input-1-2'
                             placeholder='Идентификатор заказа'
+                            max='99999999'
+                            min='0'
                             required
                             readOnly
                         />
@@ -116,7 +123,7 @@ export default class OrderEdit extends Component {
                         <label htmlFor='RecipientAddress'>Адрес получателя</label>
                         <input
                             onChange={this.onChange.bind(this)}
-                            value={this.state.order.recipientAddress}
+                            value={order.recipientAddress}
                             readOnly={readOnly}
 
                             name='RecipientAddress'
@@ -133,15 +140,15 @@ export default class OrderEdit extends Component {
                         </label>
                         <input
                             onChange={this.onChange.bind(this)}
-                            value={this.state.order.phoneNumber}
+                            value={order.phoneNumber}
                             readOnly={readOnly}
 
                             name='PhoneNumber'
                             type='number'
                             className='pure-input-1-2'
                             placeholder='Телефон получателя'
-                            max='9'
-                            min='9'
+                            min='70000000000'
+                            max='89999999999'
                             required
                         />
                     </div>
@@ -153,7 +160,7 @@ export default class OrderEdit extends Component {
 
                         <select
                             onChange={this.onChange.bind(this)}
-                            value={this.state.order.status}
+                            value={order.status}
                             readOnly={readOnly}
                             disabled={readOnly}
                             name='Status'

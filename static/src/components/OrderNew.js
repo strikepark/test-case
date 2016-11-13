@@ -23,19 +23,22 @@ export default class OrderNew extends Component {
     onChangeHandle(e) {
         let form = $(e.target).closest('.form');
 
-        form.find('button').prop('disabled', !form[0].checkValidity());
+        // form.find('button').prop('disabled', );
     }
 
-    addOrder(e) {
+    createOrder(e) {
         let form = $(e.target).closest('.form');
-        let order = serialize(form, {hash: true});
 
-        order.Code = parseInt(order.Code);
-        order.PhoneNumber = parseInt(order.PhoneNumber);
+        if (form[0].checkValidity()) {
+            let order = serialize(form, {hash: true});
 
-        console.log(order);
+            order.Code = parseInt(order.Code);
+            order.PhoneNumber = parseInt(order.PhoneNumber);
 
-        this.props.createOrder(order);
+            this.props.createOrder(order);
+        } else {
+            alert('Ошибки в полях формы');
+        }
     }
 
     render() {
@@ -123,10 +126,9 @@ export default class OrderNew extends Component {
 
                         <div className='pure-controls'>
                             <button
-                                onClick={::this.addOrder}
+                                onClick={this.createOrder.bind(this)}
                                 className='form_btn pure-button pure-button-primary is-active'
                                 type='button'
-                                disabled
                             >
                                 Добавить
                             </button>

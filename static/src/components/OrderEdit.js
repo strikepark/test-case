@@ -72,7 +72,7 @@ export default class OrderEdit extends Component {
             buttonActive = this.state.disabled ? '' : 'is-active',
             options = genStatusSelect(),
             readOnly = this.state.disabled,
-            editable = order.status === 'Доставлен' ? 'hidden' : '';
+            editable = this.props.order.status === 'Доставлен' ? 'hidden' : '';
 
         return (
             <form className={'form form_edit pure-form pure-form-aligned ' + formActive}>
@@ -161,7 +161,6 @@ export default class OrderEdit extends Component {
                         <select
                             onChange={this.onChange.bind(this)}
                             value={order.status}
-                            readOnly={readOnly}
                             disabled={readOnly}
                             name='Status'
                         >

@@ -93,7 +93,7 @@ export function createOrder(order) {
             url: url,
             data: JSON.stringify(order)
         }).done(function(data) {
-            alert('Заказ обновлен!');
+            alert('Заказ добавлен!');
 
             dispatch({
                 type: NEW_ORDER_SUCCESS,

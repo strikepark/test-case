@@ -82,7 +82,7 @@ export default function order(state = initialState, action) {
         case NEW_ORDER_SUCCESS:
             return {
                 ...state,
-                orderList: [action.order, ...orderList],
+                orderList: [action.order, ...state.orderList],
                 fetching: false,
                 error: ''
             }

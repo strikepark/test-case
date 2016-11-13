@@ -27,21 +27,21 @@ export default class UserOrdersItem extends Component {
 
         const historyObj = JSON.parse(order.ChangeHistories);
         const history = [];
-        historyObj.forEach((val) => {
+        historyObj.forEach((val, i) => {
             let color = val.Status === 'Готовится' ? 'red' :
                         val.Status === 'Доставляется' ? 'orange' : 'green';
 
             let jsx = (
-                <div className='history__item'>
+                <div className='history__item' key={i}>
                     <span className={'history__status history__status_' + color}>{val.Status}</span>
                     <span className='history__date'>{val.Date}</span>
                 </div>
             )
 
-            history.shift(jsx)
-        })
+            console.log(jsx)
 
-        console.log(history);
+            history.push(jsx)
+        })
 
         return (
             <div className='list__item'>

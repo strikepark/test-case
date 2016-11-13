@@ -4,8 +4,7 @@ import OrderItem from './OrderItem'
 
 export default class OrderList extends Component {
     render() {
-        const updateOrder= this.props.updateOrder;
-        let orders = this.props.orders;
+        let { orders, updateOrder } = this.props;
 
         // Sort by id
         orders.sort((a, b) => {

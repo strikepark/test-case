@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { UserOrderList } from './UserOrderList'
+import UserOrdersList from './UserOrdersList'
 
 export default class User extends Component {
     render() {
@@ -9,8 +9,8 @@ export default class User extends Component {
 
         return (
             <div className={'content ' + isActive}>
-                <UserOrderList orders={orders} />
+                <UserOrdersList orders={orders} />
             </div>
-        );
+        )
     }
 }

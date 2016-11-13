@@ -120,6 +120,12 @@ func GetCostumerOrders(phoneNumber string) (orders []*Order, err error) {
 	if err == orm.ErrNoRows {
 		return orders, errors.New("404")
 	} else {
+		for _, order := range orders {
+			history, _ := json.Marshal(GetHistory(order.Code))
+
+			order.ChangeHistories = string(history)
+		}
+
 		return orders, nil
 	}
 }

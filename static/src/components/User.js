@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { UserOrderList } from '../components/UserOrderList'
+import { UserOrderList } from './UserOrderList'
 
 export default class User extends Component {
     render() {

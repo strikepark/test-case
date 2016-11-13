@@ -22,11 +22,14 @@ class App extends Component {
             $('body').removeClass('fetching')
         }
 
+        const comp = isLogin ? (<Login showManage={showManage} getUserOrders={getUserOrders} active={isLogin} />) :
+                     isManage ? (<Manage active={isManage} showLogin={showLogin} createOrder={createOrder} orders={orderList} updateOrder={updateOrder} />) :
+                     isUser ? (<User orders={user.userOrderList} active={isUser} />) :
+                     '';
+
         return (
             <div>
-                <Manage active={isManage} showLogin={showLogin} createOrder={createOrder} orders={orderList} updateOrder={updateOrder} />
-                <Login showManage={showManage} getUserOrders={getUserOrders} active={isLogin} />
-                <User orders={user.userOrderList} active={isUser} />
+                {comp}
             </div>
         );
     }

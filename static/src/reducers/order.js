@@ -55,10 +55,12 @@ export default function order(state = initialState, action) {
             console.log(orderList);
             console.log(action.order);
             orderList.forEach((val, i) => {
-                if (val.Id === action.order.Id) {
+                if (val.id === action.order.id) {
                     orderList.splice(i, 1, action.order);
                 }
             });
+
+            cpnsole.log(orderList);
 
             return {
                 ...state,
